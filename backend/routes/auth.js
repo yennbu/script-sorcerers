@@ -1,4 +1,4 @@
-console.log("🔥 AUTH ROUTER LOADED");
+console.log("AUTH ROUTER LOADED");
 
 
 import { Router } from 'express';
@@ -43,18 +43,18 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const { name, email } = req.body;
+    const { email } = req.body;
     const user = await getUser(email);
     if(user) {
         if(user.email === email) {
             global.user = user;
 
-            const isAdmin = user.role && user.role === 'admin';
+            /* const isAdmin = user.role && user.role === 'admin'; */
 
             res.json({
                 success : true,
-                message : 'User logged in successfully',
-                isAdmin: isAdmin
+                message : `User logged in successfully as ${user.name}, ${user.email}, ${user.role}`,
+               /*  isAdmin: isAdmin */
             });
         } else {
             res.status(400).json({
