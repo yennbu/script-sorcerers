@@ -10,9 +10,9 @@ export async function registerUser(user) {
     }
 }
 
-export async function getUser(name) {
+export async function getUser(email) {
     try {
-        const user = await User.findOne({ name : name});
+        const user = await User.findOne({ email : email});
         if(user) return user;
         else throw new Error('No user found');
     } catch(error) {
