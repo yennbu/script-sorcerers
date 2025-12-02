@@ -8,6 +8,9 @@ import connectDB from "./config/connect.js";
 import authRouter from './routes/auth.js';
 import menuRouter from './routes/menu.js';
 import cartRouter from './routes/cart.js';
+import orderRouter from './routes/orders.js';
+
+/* import errorHandler from './middlewares/errorHandler.js'; */
 
 const app = express();
 app.use(express.json());
@@ -19,6 +22,7 @@ connectDB();
 app.use('/api/auth', authRouter);
 app.use('/api/menu', menuRouter);
 app.use('/api/cart', cartRouter);
+app.use('/api/orders', orderRouter);
 
 
 app.get("/", (req, res) => {
