@@ -8,7 +8,7 @@
     align-items: center;
 }
 
-/* Barra superior detrás del título */
+
 .about-header {
     display: flex;
     align-items: center;
@@ -17,7 +17,7 @@
     justify-content: center;
 }
 
-/* Card central */
+
 .about-card {
     width: 90%;
     max-width: 800px;
@@ -30,7 +30,7 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    letter-spacing: 0.2%;
+    letter-spacing: 0.1%;
     text-align: justify;
     line-height: 1.6;
 }
@@ -40,7 +40,7 @@
     width: 50px;
     height: 70px;
     border-radius: 30px;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 /* Títle */
@@ -87,18 +87,37 @@
 /* Móvil */
 @media (max-width: 480px) {
     .about-card {
-        padding: 1rem;
+        padding: 2rem;
+
+    }
+
+    .about-page {
+        padding: 1.8rem;
     }
 
     .about-title {
         font-size: 2rem;
     }
 
+    .about-subtitle {
+        font-size: 1.5rem;
+    }
+
     .about-text {
-        font-size: 1.1rem;
+        font-size: 0.5rem;
     }
 
     .about-logo {
         width: 60px;
+    }
+
+    .about-photo {
+        height: 200px;
+
+    }
+
+    .about-logo {
+        width: 40px;
+        height: 50px;
     }
 }
