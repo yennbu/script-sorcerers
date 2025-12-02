@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getMenu, getProduct, addProduct, updateProduct, deleteProduct, searchProduct } from '../services/menu.js';
 /* import Product from '../models/product.js'; */
-/* import { authorizeUser } from '../middlewares/adminAuth.js'; */
+import { authorizeUser } from '../middlewares/adminAuth.js'; 
 
 const router = Router();
 
@@ -20,7 +20,6 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-//search måste vara innan '/:prodId'
 router.get('/search', async (req, res, next) => {
     try {
         const title = req.query.query;
@@ -63,7 +62,7 @@ router.get('/:prodId', async (req, res, next) => {
     }
 });
 
-router.post('/',/*  authorizeUser('admin'), */ async (req, res, next) => {
+router.post('/', authorizeUser('admin'), async (req, res, next) => {
     console.log('request body: ', req.body)
     try {
         const result = await addProduct(req.body);
@@ -79,7 +78,7 @@ router.post('/',/*  authorizeUser('admin'), */ async (req, res, next) => {
     }
 });
 
-router.put('/:prodId',/*  authorizeUser('admin'), */ async (req, res, next) => {
+router.put('/:prodId', authorizeUser('admin'), async (req, res, next) => {
     try {
         const result = await updateProduct(req.params.prodId, req.body);
         if (result) {
@@ -101,7 +100,7 @@ router.put('/:prodId',/*  authorizeUser('admin'), */ async (req, res, next) => {
     }
 });
 
-router.delete('/:prodId', /* authorizeUser('admin'), */ async (req, res, next) => {
+router.delete('/:prodId', authorizeUser('admin'), async (req, res, next) => {
     try {
         const result = await deleteProduct(req.params.prodId);
         if (result) {
