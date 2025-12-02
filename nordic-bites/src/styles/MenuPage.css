@@ -1,0 +1,116 @@
+.menu-page {
+    background: #FCFDF7;
+    padding-bottom: 80px;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.logo {
+    height: 42px;
+}
+
+.profile-btn {
+    width: 32px;
+    height: 32px;
+    background: black;
+    border-radius: 6px;
+    border: none;
+}
+
+.search-wrapper {
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.menu-title {
+    text-align: center;
+    margin: 16px 0;
+    font-size: 26px;
+    font-family: var(--font-title);
+}
+
+.category-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background: #47525d;
+}
+
+.category-title {
+    font-family: "Poppins Sant", serif;
+    font-size: 18px;
+}
+
+.dish-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.dish-card {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.dish-image {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.dish-info {
+    background: #d9e8ee;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dish-name {
+    margin: 0;
+}
+
+.dish-price {
+    margin: 0;
+    color: #4a4a4a;
+}
+
+.add-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: #354C5E;
+    color: white;
+    font-size: 22px;
+}
