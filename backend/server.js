@@ -6,6 +6,7 @@ import express from "express";
 import connectDB from "./config/connect.js";
 
 import authRouter from './routes/auth.js';
+import menuRouter from './routes/menu.js'; 
 
 const app = express();
 app.use(express.json());
@@ -15,6 +16,8 @@ connectDB();
 
 // Routes
 app.use('/api/auth', authRouter);
+app.use('/api/menu', menuRouter);
+
 
 app.get("/", (req, res) => {
     res.send("API fungerar och är kopplat till MongoDB!");
