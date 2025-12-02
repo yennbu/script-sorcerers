@@ -3,6 +3,7 @@ console.log("AUTH ROUTER LOADED");
 
 import { Router } from 'express';
 import { getUser, registerUser } from '../services/users.js';
+import { v4 as uuid } from 'uuid';
 
 const router = Router();
 
@@ -22,12 +23,13 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { name, email, role } = req.body;
-    /* const role = req.body.role === 'admin' ? 'admin' : 'user'; */
+    const { name, email } = req.body;
+    const userType = req.body.role === 'admin' ? 'admin' : 'user';
     const result = await registerUser({
         name: name,
         email : email,
-        role : role,
+        role : userType,
+        userId : `${userType}-${uuid().substring(0, 5)}`
     }); 
     if(result) {
         res.status(201).json({
