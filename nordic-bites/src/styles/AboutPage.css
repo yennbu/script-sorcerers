@@ -1,0 +1,123 @@
+.about-page {
+    background-image: url("../assets/images/mountains.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.about-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+
+.about-card {
+    width: 90%;
+    max-width: 800px;
+    background-color: #3c4b5a;
+    margin-top: 0px;
+    align-items: center;
+    padding: 2.5rem;
+    border-radius: 12px;
+    color: white;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 0.1%;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+/* Logo */
+.about-logo {
+    width: 50px;
+    height: 70px;
+    border-radius: 30px;
+    margin-top: 1rem;
+}
+
+/* Títle */
+.about-title {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Subtitle */
+.about-subtitle {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+
+}
+
+/* Text */
+.about-text {
+    font-size: 1.3rem;
+    line-height: 2.2rem;
+    margin-bottom: 2rem;
+    --font-family: poppins, sans-serif;
+
+
+}
+
+/* Fhoto */
+.about-photo {
+    max-width: 800px;
+    height: 350px;
+    border-radius: 8px;
+    padding: 1rem;
+    display: block;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+}
+
+
+
+
+/* Móvil */
+@media (max-width: 480px) {
+    .about-card {
+        padding: 2rem;
+
+    }
+
+    .about-page {
+        padding: 1.8rem;
+    }
+
+    .about-title {
+        font-size: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .about-text {
+        font-size: 0.5rem;
+    }
+
+    .about-logo {
+        width: 60px;
+    }
+
+    .about-photo {
+        height: 200px;
+
+    }
+
+    .about-logo {
+        width: 40px;
+        height: 50px;
+    }
+}
