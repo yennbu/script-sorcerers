@@ -1,23 +1,35 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import AboutPage from "./pages/About/AboutPage";
-import MenuPage from "./pages/Menu/MenuPage";
 //import Home from "./pages/Home/Home";
 //mport CheckoutPage from "./pages/Checkout/CheckoutPage";
 //import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
 import "./App.css";
 
+// Pages
+import { Home } from "./pages/Home/Home";
+import { MenuPage } from "./pages/Menu/MenuPage";
+import { CartPage } from "./pages/Cart/CartPage";
+import { ReceiptPage } from "./pages/Receipt/ReceiptPage";
+import AboutPage from "./pages/About/AboutPage";
+
+// Layout
+import { BottomNav } from "./components/layout/BottomNav";
+
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/menuPage" element={<MenuPage />} />
-        {/* <Route path="/cart" element={<CartPage />} /> */}
-        {/* <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/confirmation" element={<ConfirmationPage />} /> */}
-      </Routes>
+      <div className="app">
+        <main className="app__content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/menu" element={<MenuPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/orders" element={<ReceiptPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/menuPage" element={<MenuPage />} />
+          </Routes>
+        </main>
+        <BottomNav />
+      </div>
     </BrowserRouter>
   );
 }
