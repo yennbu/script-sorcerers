@@ -1,20 +1,19 @@
 import "../../styles/MenuPage.css";
 import DishCard from "../../components/cart/DishCard";
+import logo from "../../assets/images/Logo.png";
 import meatballsImg from "../../assets/images/köttbullar.jpg";
 import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
-import logo from "../../assets/images/Logo.png";
 
 const MenyPage: React.FC = () => {
   return (
     <div className="menu-page">
-      <header className="menu-header">
-        <img src={logo} alt="Nordic Bites logo" className="about-logo" />
-        <button className="profile-btn" aria-label="Profile"></button>
-      </header>
+      <section className="menu-header">
+        <img src={logo} alt="Nordic Bites logo" className="Menu-logo" />
+        <h1 className="about-title">Nordic Bites</h1>
+      </section>
 
       <section className="search-wrapper">
-        <input type="text" placeholder="Sök rätt..." />
-        <span className="search-icon" aria-hidden="true"></span>
+        <input className="menu-input" type="text" placeholder="Sök rätt..." />
       </section>
 
       <h1 className="menu-title">Meny</h1>
@@ -25,11 +24,11 @@ const MenyPage: React.FC = () => {
         <div className="line"></div>
       </section>
 
-      <section className="dish-list">
+      <div className="dish-list">
         <DishCard name="Köttbullar" price="110 kr" image={meatballsImg} />
         <DishCard name="Kroppkakor" price="110 kr" image={kroppkakorImg} />
         <DishCard name="Köttbullar" price="110 kr" image={meatballsImg} />
-      </section>
+      </div>
     </div>
   );
 };

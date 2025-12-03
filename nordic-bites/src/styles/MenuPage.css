@@ -1,108 +1,125 @@
+:root {
+    --color-bg: #FCFDF7;
+    --color-primary: #354C5E;
+    --color-accent: #47525d;
+    --color-light: #d9e8ee;
+    --color-text: #4a4a4a;
+    --color-title: #1A262F;
+    --font-text: "Poppins", sans-serif;
+    --font-title: 'Fondamento', sans-serif;
+}
+
 .menu-page {
-    background: #FCFDF7;
-    padding-bottom: 80px;
+    background-color: var(--color-bg);
+    padding-bottom: 90px;
+    font-family: var(--font-title);
+    color: var(--color-text);
+    align-items: center;
+    justify-content: space-between
 }
 
 .menu-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 34px;
+    font-family: var(--color-bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-    height: 42px;
+.menu-title {
+    text-align: center;
+    margin: 15px 0 10px;
+    font-size: 28px;
+    font-weight: 600;
+
+
 }
 
-.profile-btn {
-    width: 32px;
-    height: 32px;
-    background: black;
-    border-radius: 6px;
-    border: none;
+.Menu-logo {
+    width: 50px;
+    height: 70px;
+    border-radius: 30px;
+
 }
 
 .search-wrapper {
     position: relative;
-    margin: 0 auto;
-    width: 80%;
+    margin: 20px auto;
+    width: 60%;
+
 }
 
 .search-wrapper input {
     width: 100%;
     padding: 10px 36px 10px 12px;
-    border: 2px solid black;
+    border: 2px solid var(--color-primary);
     border-radius: 20px;
-    background: none;
-}
-
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 20px;
-    height: 20px;
-    border: 2px solid black;
-    border-radius: 50%;
-}
-
-.menu-title {
-    text-align: center;
-    margin: 16px 0;
-    font-size: 26px;
-    font-family: var(--font-title);
+    font-family: var(--color-bg);
+    font-size: 16px;
 }
 
 .category-section {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
     margin: 16px 0;
 }
 
 .line {
     flex: 1;
     height: 1px;
-    background: #47525d;
+    background-color: var(--color-accent);
 }
 
 .category-title {
-    font-family: "Poppins Sant", serif;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .dish-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
+    padding: 0 16px;
+    font-family: var(--font-text);
 }
 
 .dish-card {
-    width: 90%;
+    width: 200%;
+    max-width: 600px;
     margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 .dish-image {
     width: 100%;
-    border-radius: 4px;
+    height: auto;
+    display: block;
 }
 
 .dish-info {
-    background: #d9e8ee;
-    padding: 12px;
+    background-color: var(--color-light);
+    padding: 12px 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .dish-name {
+    font-size: 18px;
+    font-weight: 500;
     margin: 0;
 }
 
 .dish-price {
+    font-size: 16px;
     margin: 0;
-    color: #4a4a4a;
+    color: var(--color-text);
 }
 
 .add-btn {
@@ -110,7 +127,72 @@
     height: 32px;
     border-radius: 6px;
     border: none;
-    background: #354C5E;
+    background-color: var(--color-primary);
     color: white;
     font-size: 22px;
+    cursor: pointer;
+}
+
+/*  iPhone 12 */
+@media screen and (max-width: 430px) {
+    .menu-header {
+        padding: 12px 16px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .Menu-logo {
+        width: 40px;
+        height: 60px;
+        border-radius: 20px;
+    }
+
+    .search-wrapper {
+        width: 90%;
+        margin: 16px auto;
+    }
+
+    .search-wrapper input {
+        font-size: 14px;
+        padding: 8px 32px 8px 10px;
+    }
+
+    .menu-title {
+        font-size: 24px;
+        margin: 12px 0;
+    }
+
+    .category-title {
+        font-size: 18px;
+    }
+
+    .dish-list {
+        gap: 16px;
+        padding: 0 12px;
+    }
+
+    .dish-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .dish-name,
+    .dish-price {
+        font-size: 16px;
+    }
+
+    .add-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+    }
+
+    .bottom-nav {
+        height: 56px;
+        font-size: 12px;
+    }
+
+    .nav-item {
+        padding: 4px;
+    }
 }
