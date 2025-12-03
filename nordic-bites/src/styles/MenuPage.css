@@ -25,7 +25,7 @@
     align-items: center;
     padding: 16px 34px;
     font-family: var(--color-bg);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
 }
 
 .menu-title {
@@ -79,12 +79,15 @@
     font-weight: 500;
 }
 
-.dish-list {
+.dishlist-Cola {
     display: flex;
     flex-direction: column;
     gap: 24px;
     padding: 0 16px;
     font-family: var(--font-text);
+    margin: 16px auto;
+    overflow: hidden;
+
 }
 
 .dish-card {
@@ -93,13 +96,17 @@
     margin: 0 auto;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .dish-image {
     width: 100%;
     height: auto;
     display: block;
+    margin-top: 1rem;
+    border-radius: 8px 8px 0 0;
+
+
 }
 
 .dish-info {
@@ -122,6 +129,25 @@
     color: var(--color-text);
 }
 
+.category-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.line {
+    flex: 1;
+    height: 1px;
+    background-color: var(--color-accent);
+}
+
+.category-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
 .add-btn {
     width: 32px;
     height: 32px;
@@ -137,8 +163,9 @@
 @media screen and (max-width: 430px) {
     .menu-header {
         padding: 12px 16px;
-        flex-direction: row;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
 
     .Menu-logo {
@@ -194,5 +221,83 @@
 
     .nav-item {
         padding: 4px;
+    }
+}
+
+/* Tablet */
+@media screen and (min-width: 431px) and (max-width: 1024px) {
+    .menu-header {
+        padding: 20px 32px;
+        gap: 10px;
+    }
+
+
+    .Menu-logo {
+        width: 60px;
+        height: 80px;
+        border-radius: 24px;
+    }
+
+
+    .search-wrapper {
+        width: 70%;
+        margin: 20px auto;
+    }
+
+
+    .search-wrapper input {
+        font-size: 15px;
+        padding: 10px 36px 10px 14px;
+    }
+
+
+    .menu-title {
+        font-size: 26px;
+        margin: 16px 0;
+    }
+
+
+    .category-title {
+        font-size: 20px;
+    }
+
+
+    .dish-list {
+        gap: 20px;
+        padding: 0 24px;
+    }
+
+
+    .dish-card {
+        width: 100%;
+        max-width: 500px;
+    }
+
+
+    .dish-name {
+        font-size: 18px;
+    }
+
+
+    .dish-price {
+        font-size: 16px;
+    }
+
+
+    .add-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 22px;
+    }
+
+
+    .bottom-nav {
+        height: 64px;
+        font-size: 14px;
+    }
+
+
+    .nav-item {
+        padding: 6px;
     }
 }

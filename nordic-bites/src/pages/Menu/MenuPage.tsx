@@ -3,6 +3,7 @@ import DishCard from "../../components/cart/DishCard";
 import logo from "../../assets/images/Logo.png";
 import meatballsImg from "../../assets/images/köttbullar.jpg";
 import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
+import CocaCola from "../../assets/images/CocaCola.png";
 
 const MenyPage: React.FC = () => {
   return (
@@ -29,8 +30,17 @@ const MenyPage: React.FC = () => {
         <DishCard name="Kroppkakor" price="110 kr" image={kroppkakorImg} />
         <DishCard name="Köttbullar" price="110 kr" image={meatballsImg} />
       </div>
+
+      <section className="category-section">
+        <div className="line"></div>
+        <h2 className="category-title">Drycker</h2>
+        <div className="line"></div>
+      </section>
+
+      <div className="dishlist-Cola">
+        <DishCard name="Coca Cola" price="30 kr" image={CocaCola} />
+      </div>
     </div>
   );
 };
-
 export default MenyPage;
