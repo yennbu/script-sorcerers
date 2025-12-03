@@ -41,7 +41,7 @@ router.get('/:cartId', async (req, res, next) => {
 router.put('/', validateCartBody, async (req, res, next) => {
     const { prodId, qty, guestId } = req.body;
     if (global.user) {
-        const user = await getUser(global.user.name);
+        const user = await getUser(global.user.email);
         if (user) {
             const product = await getProduct(prodId);
             if (product) {
@@ -52,10 +52,15 @@ router.put('/', validateCartBody, async (req, res, next) => {
                     qty: qty
                 });
                 if (result) {
+                    const totalPrice = result.items.reduce((sum, item) => {
+                        return sum + item.price * item.qty;
+                    }, 0);
+
                     res.status(201).json({
                         success: true,
                         message: 'Cart updated',
-                        cart: result
+                        cart: result,
+                        totalPrice: totalPrice
                     });
                 } else {
                     next({
@@ -85,10 +90,15 @@ router.put('/', validateCartBody, async (req, res, next) => {
                 qty: qty
             });
             if (result) {
+                const totalPrice = result.items.reduce((sum, item) => {
+                    return sum + item.price * item.qty;
+                }, 0);
+
                 res.status(201).json({
                     success: true,
                     message: 'Cart updated',
-                    cart: result
+                    cart: result,
+                    totalPrice: totalPrice
                 });
             } else {
                 next({
