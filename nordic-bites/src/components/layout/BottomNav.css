@@ -1,0 +1,45 @@
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 72px;
+  background-color: #0f2530;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.bottom-nav__list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin: 0;
+  padding: 0;
+}
+
+.bottom-nav__item {
+  display: flex;
+}
+
+.bottom-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.bottom-nav__link--active {
+  opacity: 1;
+}
+
+.bottom-nav__icon {
+  width: 26px;
+  height: 26px;
+}
+.bottom-nav__icon {
+  filter: brightness(0) invert(1);
+}
