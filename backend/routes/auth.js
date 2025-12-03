@@ -23,13 +23,14 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.post('/register', async (req, res) => {
-    const { name, email } = req.body;
+    const { name, email, password } = req.body;
     const userType = req.body.role === 'admin' ? 'admin' : 'user';
     const result = await registerUser({
+        userId : `${userType}-${uuid().substring(0, 5)}`,
         name: name,
         email : email,
-        role : userType,
-        userId : `${userType}-${uuid().substring(0, 5)}`
+        password : password,
+        role : userType
     }); 
     if(result) {
         res.status(201).json({
@@ -45,18 +46,18 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const { email } = req.body;
+    const { email, password } = req.body;
     const user = await getUser(email);
     if(user) {
-        if(user.email === email) {
+        if(user.email === email && user.password === password) {
             global.user = user;
 
-            /* const isAdmin = user.role && user.role === 'admin'; */
+            const isAdmin = user.role && user.role === 'admin'; 
 
             res.json({
                 success : true,
                 message : `User logged in successfully as ${user.name}, ${user.email}, ${user.role}`,
-               /*  isAdmin: isAdmin */
+                isAdmin: isAdmin
             });
         } else {
             res.status(400).json({

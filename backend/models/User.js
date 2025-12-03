@@ -3,6 +3,10 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+    userId : {
+        type : String,
+        unique : true
+    },
     name : {
         type : String,
         required : true
@@ -12,6 +16,10 @@ const userSchema = new Schema({
         required : true,
         unique : true
     },  
+    password : {
+        type : String,
+        required : true
+    },
     role : {
         type : String,
     }
