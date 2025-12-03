@@ -4,6 +4,7 @@ import logo from "../../assets/images/Logo.png";
 import meatballsImg from "../../assets/images/köttbullar.jpg";
 import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
 import CocaCola from "../../assets/images/CocaCola.png";
+import { BottomNav } from "../../components/layout/BottomNav";
 
 const MenyPage: React.FC = () => {
   return (
@@ -40,6 +41,7 @@ const MenyPage: React.FC = () => {
       <div className="dishlist-Cola">
         <DishCard name="Coca Cola" price="30 kr" image={CocaCola} />
       </div>
+      <BottomNav />
     </div>
   );
 };

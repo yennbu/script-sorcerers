@@ -6,7 +6,7 @@ import "./App.css";
 
 // Pages
 import { Home } from "./pages/Home/Home";
-import { MenuPage } from "./pages/Menu/MenuPage";
+import MenuPage from "./pages/Menu/MenuPage";
 import { CartPage } from "./pages/Cart/CartPage";
 import { ReceiptPage } from "./pages/Receipt/ReceiptPage";
 import AboutPage from "./pages/About/AboutPage";
