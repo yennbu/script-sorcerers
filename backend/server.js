@@ -10,6 +10,8 @@ import menuRouter from './routes/menu.js';
 import cartRouter from './routes/cart.js';
 import orderRouter from './routes/orders.js';
 
+import { checkApiKey } from "./middlewares/checkApiKey.js";
+
 /* import errorHandler from './middlewares/errorHandler.js'; */
 
 const app = express();
@@ -17,6 +19,8 @@ app.use(express.json());
 
 // Anslut till MongoDB
 connectDB();
+
+app.use(checkApiKey);
 
 // Routes
 app.use('/api/auth', authRouter);
