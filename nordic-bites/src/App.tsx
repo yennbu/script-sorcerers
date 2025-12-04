@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 // Pages
-//import { Home } from "./pages/Home/Home";
+import { Home } from "./pages/Home/Home";
 import MenuPage from "./pages/Menu/MenuPage";
 import { CartPage } from "./pages/Cart/CartPage";
 import { ReceiptPage } from "./pages/Receipt/ReceiptPage";
@@ -21,11 +21,12 @@ function App() {
       <div className="app">
         <main className="app__content">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/orders" element={<ReceiptPage />} />
             <Route path="/bottomNav" element={<BottomNav />} />
-            <Route path="/aboutPage" element={<AboutPage />} />
+            <Route path="/about" element={<AboutPage />} />
             <Route path="/menuPage" element={<MenuPage />} />
           </Routes>
         </main>

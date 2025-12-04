@@ -21,7 +21,10 @@ const menuItems: MenuItem[] = [
 export const Home = () => {
   return (
     <div className="home">
-      <header className="home-hero">
+      <header
+        className="home-hero"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      >
         <div className="home-hero__overlay">
           <div className="home-hero__content">
             <h1 className="home-hero__title">Nordic Bites</h1>
