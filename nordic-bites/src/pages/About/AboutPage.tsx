@@ -1,7 +1,6 @@
 import "../../styles/AboutPage.css";
 import logo from "../../assets/images/Logo.png";
 import familyImage from "../../assets/images/familyImage.png";
-import { BottomNav } from "../../components/layout/BottomNav";
 
 const AboutPage: React.FC = () => {
   return (
@@ -38,7 +37,6 @@ const AboutPage: React.FC = () => {
           className="about-photo"
         />
       </div>
-      <BottomNav />
     </div>
   );
 };

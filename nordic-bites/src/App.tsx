@@ -1,7 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//import Home from "./pages/Home/Home";
-//mport CheckoutPage from "./pages/Checkout/CheckoutPage";
-//import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
+
 import "./App.css";
 
 // Pages
@@ -25,7 +23,6 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/orders" element={<ReceiptPage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/menuPage" element={<MenuPage />} />
           </Routes>
         </main>
         <BottomNav />
