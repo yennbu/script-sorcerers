@@ -1,6 +1,7 @@
 import "../../styles/AboutPage.css";
 import logo from "../../assets/images/Logo.png";
 import familyImage from "../../assets/images/familyImage.png";
+import { BottomNav } from "../../components/layout/BottomNav";
 
 const AboutPage: React.FC = () => {
   return (
@@ -12,13 +13,13 @@ const AboutPage: React.FC = () => {
       <h2 className="about-subtitle">Om oss</h2>
 
       <div className="about-card">
-        <p>
+        <p className="about-text">
           Nordic Bites föddes ur idén att ta den nordiska matkulturen till en
           modern take away-upplevelse. Vi kombinerar traditionella smaker med
           ett minimalistiskt uttryck, och gör det enkelt för dig att njuta av
           kvalitetsmat var du än är.
         </p>
-        <p>
+        <p className="about-text">
           Nordic Bites föddes ur idén att ta den nordiska matkulturen till en
           modern take away-upplevelse. Vi kombinerar traditionella smaker med
           ett minimalistiskt uttryck, och gör det enkelt för dig att njuta av
@@ -37,6 +38,36 @@ const AboutPage: React.FC = () => {
           className="about-photo"
         />
       </div>
+
+      <section className="about-contact">
+        <h2 className="contact-subtitle">Kontakta oss</h2>
+
+        <div className="about-contact-bar">
+          <div className="contact-row">
+            <span className="label">Företag</span>
+            <span className="value">Nordic Bites AB</span>
+          </div>
+          <div className="contact-row">
+            <span className="label">Adress</span>
+            <span className="value">Storgatan 12, 114 55</span>
+          </div>
+          <div className="contact-row">
+            <span className="label">Stad</span>
+            <span className="value">Stockholm</span>
+          </div>
+          <div className="contact-row">
+            <span className="label">Telefon</span>
+            <span className="value">+46 8 123 456 78</span>
+          </div>
+
+          <div className="contact-row">
+            <span className="label">Email</span>
+            <span className="value">kontakt@nordicbites.se</span>
+          </div>
+        </div>
+      </section>
+
+      <BottomNav />
     </div>
   );
 };
