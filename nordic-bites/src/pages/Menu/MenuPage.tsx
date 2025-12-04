@@ -3,7 +3,7 @@ import DishCard from "../../components/cart/DishCard";
 import logo from "../../assets/images/Logo.png";
 import meatballsImg from "../../assets/images/köttbullar.jpg";
 import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
-import CocaCola from "../../assets/images/CocaCola.png";
+import Cola from "../../assets/images/Cola.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 
 const MenyPage: React.FC = () => {
@@ -39,7 +39,7 @@ const MenyPage: React.FC = () => {
       </section>
 
       <div className="dishlist-Cola">
-        <DishCard name="Coca Cola" price="30 kr" image={CocaCola} />
+        <DishCard name="Coca Cola" price="30 kr" image={Cola} />
       </div>
       <BottomNav />
     </div>

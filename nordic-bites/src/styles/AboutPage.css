@@ -6,6 +6,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+
+
 }
 
 .about-header {
@@ -18,19 +21,16 @@
 
 .about-card {
     width: 90%;
-    max-width: 800px;
+    max-width: 700px;
     background-color: #3c4b5a;
     margin-top: 0px;
-    align-items: center;
     padding: 2.5rem;
     border-radius: 12px;
     color: white;
-    text-align: left;
     display: flex;
     flex-direction: column;
-    letter-spacing: 0.1%;
-    text-align: justify;
-    line-height: 1.6;
+
+
 }
 
 /* Logo */
@@ -44,7 +44,7 @@
 /* Títle */
 .about-title {
     font-family: var(--font-title);
-    font-size: 2.5rem;
+    font-size: 20px;
     text-align: center;
     margin-bottom: 1.5rem;
     margin-top: 2rem;
@@ -52,40 +52,79 @@
 
 /* Subtitle */
 .about-subtitle {
-    font-size: 1.8rem;
+    font-size: 18px;
     text-align: center;
     margin-bottom: 2rem;
+    font-family: var(--font-title);
+
 
 }
 
 /* Text */
 .about-text {
-    font-size: 1.3rem;
-    line-height: 2.2rem;
-    margin-bottom: 2rem;
+    font-size: 15px;
+    line-height: 2rem;
+    margin-bottom: 1.5rem;
     --font-family: poppins, sans-serif;
+    text-align: left;
+
+
+
+
 
 
 }
 
 /* Fhoto */
 .about-photo {
-    max-width: 800px;
-    height: 350px;
+    max-width: 100%;
+    height: 200px;
     border-radius: 8px;
     padding: 1rem;
     display: block;
     border-radius: 12px;
     margin-top: 1.5rem;
+
 }
 
+/*kontakt-info*/
+.about-contact {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+    padding: 2rem 1.5rem;
+    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: center;
+    background: rgba(97, 94, 94, 0.15);
+    border-radius: 12px;
+    color: #c8c4c4;
+    font-size: 0.95rem;
+    gap: 1.25rem;
+    grid-gap: 3remç;
+}
 
+.about-contact-bar {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: left;
+}
 
+.contact-subtitle {
+    font-size: 1.4rem;
+    font-family: var(--font-);
+    margin: 0;
+}
 
 /* Móvil */
 @media (max-width: 430px) {
     .about-card {
-        padding: 2rem;
+        padding: 1.8rem;
+
 
     }
 
@@ -94,41 +133,43 @@
     }
 
     .about-title {
-        font-size: 2rem;
+        font-size: 30px;
     }
 
     .about-subtitle {
-        font-size: 1.5rem;
+        font-size: 25px;
     }
 
     .about-text {
-        font-size: 0.5rem;
-    }
+        font-size: 18px;
 
-    .about-logo {
-        width: 60px;
+
+
     }
 
     .about-photo {
-        height: 200px;
+        height: 180px;
+        max-width: 100%;
 
     }
 
     .about-logo {
         width: 40px;
         height: 50px;
+
     }
+
 }
 
 /* Tablet */
 @media (min-width: 431px) and (max-width: 1024px) {
     .about-card {
-        padding: 2rem;
+        padding: 1.8rem;
         max-width: 90%;
     }
 
     .about-title {
-        font-size: 2.4rem;
+        font-size: 2rem;
     }
 
     .about-subtitle {
@@ -136,8 +177,9 @@
     }
 
     .about-text {
-        font-size: 1.2rem;
-        line-height: 2rem;
+        font-size: 1rem;
+
+
     }
 
     .about-logo {
@@ -146,28 +188,26 @@
     }
 
     .about-photo {
-        height: 300px;
-        max-width: 90%;
+        height: 350px;
+        max-width: 100%;
     }
 }
 
 /* Desktop */
 @media (min-width: 1025px) {
     .about-page {
-        flex-direction: row;
         justify-content: center;
-        padding: 3rem;
+        padding: 2rem;
+
     }
 
     .about-card {
-        max-width: 1000px;
         padding: 3rem 4rem;
-        font-size: 1.4rem;
-        line-height: 2.4rem;
+
     }
 
     .about-title {
-        font-size: 3rem;
+        font-size: 2.5rem;
         margin-bottom: 2rem;
     }
 
@@ -177,9 +217,10 @@
     }
 
     .about-text {
-        font-size: 1.4rem;
-        line-height: 2.4rem;
-        margin-bottom: 2.5rem;
+        font-size: 17px;
+        line-height: 1.8rem;
+        margin-bottom: 0.9rem;
+        word-spacing: 2px;
     }
 
     .about-photo {
@@ -189,7 +230,7 @@
     }
 
     .about-logo {
-        width: 70px;
-        height: 90px;
+        width: 60px;
+        height: 80px;
     }
 }
