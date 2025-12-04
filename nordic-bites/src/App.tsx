@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 //mport CheckoutPage from "./pages/Checkout/CheckoutPage";
 //import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
