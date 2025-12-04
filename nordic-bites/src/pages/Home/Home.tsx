@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "../../styles/HomePage.css";
 import heroImage from "../../assets/images/mountains.jpg";
-import meatballsImage from "../../assets/images/köttbullar.jpg"; 
-import northernImage from "../../assets/images/northern-lights.jpg"; 
+import meatballsImage from "../../assets/images/köttbullar.jpg";
+import northernImage from "../../assets/images/northern-lights.jpg";
 
 type MenuItem = {
   name: string;
@@ -62,26 +62,27 @@ export const Home = () => {
           className="home-image__photo"
         />
       </section>
+
       <section
-  className="home-hours"
-  style={{ backgroundImage: `url(${northernImage})` }}
->
-  <div className="home-hours__overlay">
-    <div className="home-hours__content">
-      <h2 className="home-hours__title">Öppettider</h2>
+        className="home-hours"
+        style={{ backgroundImage: `url(${northernImage})` }}
+      >
+        <div className="home-hours__overlay">
+          <div className="home-hours__content">
+            <h2 className="home-hours__title">Öppettider</h2>
 
-      <ul className="home-hours__list">
-        <li>Måndag – Fredag: 10:00 – 20:00</li>
-        <li>Lördag: 11:00 – 18:00</li>
-        <li>Söndag: Stängt</li>
-      </ul>
+            <ul className="home-hours__list">
+              <li>Måndag – Fredag: 10:00 – 20:00</li>
+              <li>Lördag: 11:00 – 18:00</li>
+              <li>Söndag: Stängt</li>
+            </ul>
 
-      <Link to="/about" className="home-hours__button">
-        Om oss
-      </Link>
-    </div>
-  </div>
-</section>
+            <Link to="/about" className="home-hours__button">
+              Om oss
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

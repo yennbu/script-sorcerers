@@ -8,7 +8,6 @@
     align-items: center;
 }
 
-
 .about-header {
     display: flex;
     align-items: center;
@@ -16,7 +15,6 @@
     margin-bottom: 1rem;
     justify-content: center;
 }
-
 
 .about-card {
     width: 90%;
@@ -43,7 +41,7 @@
     margin-top: 1rem;
 }
 
-/* Títle */
+/* Title */
 .about-title {
     font-family: var(--font-title);
     font-size: 2.5rem;
@@ -57,7 +55,6 @@
     font-size: 1.8rem;
     text-align: center;
     margin-bottom: 2rem;
-
 }
 
 /* Text */
@@ -66,11 +63,9 @@
     line-height: 2.2rem;
     margin-bottom: 2rem;
     --font-family: poppins, sans-serif;
-
-
 }
 
-/* Fhoto */
+/* Photo */
 .about-photo {
     max-width: 800px;
     height: 350px;
@@ -81,14 +76,10 @@
     margin-top: 1.5rem;
 }
 
-
-
-
-/* Móvil */
-@media (max-width: 480px) {
+/* Mobile */
+@media (max-width: 430px) {
     .about-card {
         padding: 2rem;
-
     }
 
     .about-page {
@@ -113,11 +104,84 @@
 
     .about-photo {
         height: 200px;
-
     }
 
     .about-logo {
         width: 40px;
         height: 50px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 431px) and (max-width: 1024px) {
+    .about-card {
+        padding: 2rem;
+        max-width: 90%;
+    }
+
+    .about-title {
+        font-size: 2.4rem;
+    }
+
+    .about-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .about-text {
+        font-size: 1.2rem;
+        line-height: 2rem;
+    }
+
+    .about-logo {
+        width: 60px;
+        height: 70px;
+    }
+
+    .about-photo {
+        height: 300px;
+        max-width: 90%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .about-page {
+        flex-direction: row;
+        justify-content: center;
+        padding: 3rem;
+    }
+
+    .about-card {
+        max-width: 1000px;
+        padding: 3rem 4rem;
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+    }
+
+    .about-title {
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-text {
+        font-size: 1.4rem;
+        line-height: 2.4rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-photo {
+        max-width: 1000px;
+        height: 450px;
+        margin-top: 2rem;
+    }
+
+    .about-logo {
+        width: 70px;
+        height: 90px;
     }
 }
