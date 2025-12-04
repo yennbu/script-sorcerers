@@ -17,7 +17,6 @@ import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
   return (
-    <BrowserRouter>
       <div className="app">
         <main className="app__content">
           <Routes>
@@ -32,7 +31,6 @@ function App() {
         </main>
         <BottomNav />
       </div>
-    </BrowserRouter>
   );
 }
 
