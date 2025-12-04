@@ -1,0 +1,236 @@
+.about-page {
+    background-image: url("../assets/images/mountains.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+
+
+}
+
+.about-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.about-card {
+    width: 90%;
+    max-width: 700px;
+    background-color: #3c4b5a;
+    margin-top: 0px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+/* Logo */
+.about-logo {
+    width: 50px;
+    height: 70px;
+    border-radius: 30px;
+    margin-top: 1rem;
+}
+
+/* Title */
+.about-title {
+    font-family: var(--font-title);
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* Subtitle */
+.about-subtitle {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: var(--font-title);
+
+
+}
+
+/* Text */
+.about-text {
+    font-size: 15px;
+    line-height: 2rem;
+    margin-bottom: 1.5rem;
+    --font-family: poppins, sans-serif;
+    text-align: left;
+
+
+
+
+
+
+}
+
+/* Photo */
+.about-photo {
+    max-width: 100%;
+    height: 200px;
+    border-radius: 8px;
+    padding: 1rem;
+    display: block;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+
+}
+
+/*kontakt-info*/
+.about-contact {
+    width: 100%;
+    max-width: 700px;
+    margin-top: 2rem;
+    margin-bottom: 6rem;
+    padding: 2rem 1.5rem;
+    display: flex;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: center;
+    background: rgba(97, 94, 94, 0.15);
+    border-radius: 12px;
+    color: #c8c4c4;
+    font-size: 0.95rem;
+    gap: 1.25rem;
+    grid-gap: 3remç;
+}
+
+.about-contact-bar {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: left;
+}
+
+.contact-subtitle {
+    font-size: 1.4rem;
+    font-family: var(--font-);
+    margin: 0;
+}
+
+/* Móvil */
+@media (max-width: 430px) {
+    .about-card {
+        padding: 1.8rem;
+
+
+    }
+
+    .about-page {
+        padding: 1.8rem;
+    }
+
+    .about-title {
+        font-size: 30px;
+    }
+
+    .about-subtitle {
+        font-size: 25px;
+    }
+
+    .about-text {
+        font-size: 18px;
+
+
+
+    }
+
+    .about-photo {
+        height: 180px;
+        max-width: 100%;
+
+    }
+
+    .about-logo {
+        width: 40px;
+        height: 50px;
+
+    }
+
+}
+
+/* Tablet */
+@media (min-width: 431px) and (max-width: 1024px) {
+    .about-card {
+        padding: 1.8rem;
+        max-width: 90%;
+    }
+
+    .about-title {
+        font-size: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 1.6rem;
+    }
+
+    .about-text {
+        font-size: 1rem;
+
+
+    }
+
+    .about-logo {
+        width: 60px;
+        height: 70px;
+    }
+
+    .about-photo {
+        height: 350px;
+        max-width: 100%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .about-page {
+        justify-content: center;
+        padding: 2rem;
+
+    }
+
+    .about-card {
+        padding: 3rem 4rem;
+
+    }
+
+    .about-title {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-subtitle {
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .about-text {
+        font-size: 17px;
+        line-height: 1.8rem;
+        margin-bottom: 0.9rem;
+        word-spacing: 2px;
+    }
+
+    .about-photo {
+        max-width: 1000px;
+        height: 450px;
+        margin-top: 2rem;
+    }
+
+    .about-logo {
+        width: 60px;
+        height: 80px;
+    }
+}
