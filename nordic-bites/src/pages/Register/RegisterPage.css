@@ -65,3 +65,9 @@
     margin-top: 1.5rem;
     width: 100%;
 }
+
+.loginForm-register {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #333;
+}

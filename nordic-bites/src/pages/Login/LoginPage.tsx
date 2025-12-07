@@ -11,7 +11,9 @@ const LoginPage = () => {
                 <h1 className="loginPage-title">Nordic Bites</h1>
             </div>
             <div className="loginPage-btn-container">
-                <button className="loginPage-btn">Logga in</button>
+                <NavLink to="/loginForm" className="loginPage-login-link">
+                    <button className="loginPage-btn">Logga in</button>
+                </NavLink>
                 <NavLink to="/register" className="loginPage-register-link">
                     <button className="loginPage-btn">Skapa konto</button>
                 </NavLink>

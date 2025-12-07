@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./RegisterPage.css";
 import Logo from "../../assets/images/Logo.png";
 
@@ -23,6 +24,7 @@ const registerPage = () => {
                     className="registerPage-input" />
                 <button className="registerPage-btn">Skapa konto</button>
             </form>
+            <p className="loginForm-register">Har du redan ett konto? <NavLink to="/loginForm">Logga in här!</NavLink></p>
         </div>
     )
 }
