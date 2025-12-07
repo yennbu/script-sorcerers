@@ -47,3 +47,11 @@
     margin-top: 4rem;
     width: 65%;
 }
+
+.loginPage-register-link {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
