@@ -12,6 +12,7 @@ import { CartPage } from "./pages/Cart/CartPage";
 import { ReceiptPage } from "./pages/Receipt/ReceiptPage";
 import AboutPage from "./pages/About/AboutPage";
 import LoginPage from "./pages/Login/LoginPage";
+import RegisterPage from "./pages/Register/RegisterPage";
 
 // Layout
 import { BottomNav } from "./components/layout/BottomNav";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/menuPage" element={<MenuPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </main>
         <BottomNav />

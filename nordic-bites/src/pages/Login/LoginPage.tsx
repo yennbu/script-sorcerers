@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { BottomNav } from "../../components/layout/BottomNav";
 import "./LoginPage.css";
 import Logo from "../../assets/images/Logo.png";
@@ -11,7 +12,9 @@ const LoginPage = () => {
             </div>
             <div className="loginPage-btn-container">
                 <button className="loginPage-btn">Logga in</button>
-                <button className="loginPage-btn">Skapa konto</button>
+                <NavLink to="/register" className="loginPage-register-link">
+                    <button className="loginPage-btn">Skapa konto</button>
+                </NavLink>
             </div>
             <BottomNav />
         </div>
