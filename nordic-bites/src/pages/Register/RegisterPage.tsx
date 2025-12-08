@@ -10,13 +10,19 @@ interface RegisterData {
     role: string;
 }
 
-const registerPage = () => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [success, setSuccess] = useState(false);
+interface RegisterResponse {
+    success: boolean;
+    message?: string;
+}
 
-    const handleSubmit = async (e: React.FormEvent) => {
+const registerPage: React.FC = () => {
+    const [name, setName] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [success, setSuccess] = useState<boolean>(false);
+    const [errorMsg, setErrorMsg] = useState<string>("");
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const data: RegisterData = {
@@ -27,7 +33,7 @@ const registerPage = () => {
         };
 
         try {
-            const response = await fetch("https://script-sorcerers.onrender.com/api/auth/register",
+            const response: Response = await fetch("https://script-sorcerers.onrender.com/api/auth/register",
                 {
                     method: "POST",
                     body: JSON.stringify(data),
@@ -37,22 +43,28 @@ const registerPage = () => {
                     }
                 });
 
-            const result = await response.json();
-            
+            const result: RegisterResponse = await response.json();
+
             if (result.success == true) {
-                
+
                 console.log("Registrering lyckades:", result);
                 setName("");
                 setEmail("");
                 setPassword("");
-
+                setErrorMsg("");
                 setSuccess(true);
+            } else {
+                console.error("Registrering misslyckades:", result.message);
+                setErrorMsg(result.message || "Registrering misslyckades");
+                setSuccess(false);
             }
 
             console.log("Registrering lyckades:", data);
 
         } catch (error) {
             console.error("Fel vid registrering:", error);
+            setErrorMsg("Något gick fel. Försök igen senare.");
+            setSuccess(false);
         }
     };
 
@@ -70,7 +82,7 @@ const registerPage = () => {
                     onChange={(e) => setName(e.target.value)}
                     className="registerPage-input" />
                 <input
-                    type="text"
+                    type="email"
                     placeholder="E-post"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -86,6 +98,7 @@ const registerPage = () => {
 
             {!success && <p className="loginForm-register">Har du redan ett konto? <NavLink to="/loginForm">Logga in här!</NavLink></p>}
             {success && <p className="registerPage-success-message">Registrering lyckades! Du kan nu <NavLink to="/loginForm">logga in</NavLink>.</p>}
+            {errorMsg && <p className="registerPage-error-message">{errorMsg}</p>}
         </div>
     )
 }
