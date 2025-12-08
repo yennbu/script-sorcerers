@@ -5,6 +5,7 @@ import meatballsImg from "../../assets/images/köttbullar.jpg";
 import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
 import Cola from "../../assets/images/Cola.png";
 import { BottomNav } from "../../components/layout/BottomNav";
+import { useMenu } from "../../Hooks/useMenu";
 
 export interface MenuItem {
   id: string;
@@ -15,6 +16,16 @@ export interface MenuItem {
 }
 
 const MenyPage: React.FC = () => {
+  const { data: menuItems, loading, error } = useMenu();
+
+  if (loading) {
+    return <p className="menu-loading">Laddar meny...</p>;
+  }
+
+  if (error) {
+    return <p className="menu-error">{error}</p>;
+  }
+
   return (
     <div className="menu-page">
       <section className="menu-header">
@@ -49,6 +60,18 @@ const MenyPage: React.FC = () => {
       <div className="dishlist-Cola">
         <DishCard name="Coca Cola" price="30 kr" image={Cola} />
       </div>
+
+      <section className="menu-grid">
+        {menuItems.map((item: MenuItem) => (
+          <DishCard
+            key={item.id}
+            name={item.name}
+            price={`${item.price} kr`}
+            image={item.image}
+            category={item.category}
+          />
+        ))}
+      </section>
       <BottomNav />
     </div>
   );

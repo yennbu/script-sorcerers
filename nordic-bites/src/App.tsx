@@ -17,20 +17,20 @@ import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
   return (
-      <div className="app">
-        <main className="app__content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/orders" element={<ReceiptPage />} />
-            <Route path="/bottomNav" element={<BottomNav />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/menuPage" element={<MenuPage />} />
-          </Routes>
-        </main>
-        <BottomNav />
-      </div>
+    <div className="app">
+      <main className="app__content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<MenuPage />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/orders" element={<ReceiptPage />} />
+          <Route path="/bottomNav" element={<BottomNav />} />
+          <Route path="/aboutPage" element={<AboutPage />} />
+          <Route path="/menuPage" element={<MenuPage />} />
+        </Routes>
+      </main>
+      <BottomNav />
+    </div>
   );
 }
 
