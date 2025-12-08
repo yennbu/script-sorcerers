@@ -1,11 +1,9 @@
 import "../../styles/MenuPage.css";
 import DishCard from "../../components/cart/DishCard";
 import logo from "../../assets/images/Logo.png";
-import meatballsImg from "../../assets/images/köttbullar.jpg";
-import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
-import Cola from "../../assets/images/Cola.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 import { useMenu } from "../../Hooks/useMenu";
+import { useState } from "react";
 
 export interface MenuItem {
   id: string;
@@ -13,11 +11,13 @@ export interface MenuItem {
   price: number;
   image: string;
   category: string;
+  type: number;
 }
 
 const MenyPage: React.FC = () => {
   const { data: menuItems, loading, error } = useMenu();
-
+  const [cart, setCart] = useState<MenuItem[]>([]);
+  console.log(cart);
   if (loading) {
     return <p className="menu-loading">Laddar meny...</p>;
   }
@@ -26,6 +26,10 @@ const MenyPage: React.FC = () => {
     return <p className="menu-error">{error}</p>;
   }
 
+  // 👇 Aquí va la lógica
+  const handleAddToCart = (item: MenuItem) => {
+    setCart((prevCart) => [...prevCart, item]);
+  };
   return (
     <div className="menu-page">
       <section className="menu-header">
@@ -45,11 +49,20 @@ const MenyPage: React.FC = () => {
         <div className="line"></div>
       </section>
 
-      <div className="dish-list">
-        <DishCard name="Köttbullar" price="110 kr" image={meatballsImg} />
-        <DishCard name="Kroppkakor" price="110 kr" image={kroppkakorImg} />
-        <DishCard name="Köttbullar" price="110 kr" image={meatballsImg} />
-      </div>
+      <section className="dish-list">
+        {menuItems
+          .filter((item: MenuItem) => item.type !== 1)
+          .map((item: MenuItem) => (
+            <DishCard
+              key={item.id}
+              name={item.name}
+              price={`${item.price} kr`}
+              image={item.image || ""}
+              category={item.category}
+              onAdd={() => handleAddToCart(item)}
+            />
+          ))}
+      </section>
 
       <section className="category-section">
         <div className="line"></div>
@@ -58,20 +71,18 @@ const MenyPage: React.FC = () => {
       </section>
 
       <div className="dishlist-Cola">
-        <DishCard name="Coca Cola" price="30 kr" image={Cola} />
+        {menuItems
+          .filter((item: MenuItem) => item.type === 1)
+          .map((item: MenuItem) => (
+            <DishCard
+              key={item.id}
+              name={item.name}
+              price={`${item.price} kr`}
+              image={item.image}
+              category={item.category}
+            />
+          ))}
       </div>
-
-      <section className="menu-grid">
-        {menuItems.map((item: MenuItem) => (
-          <DishCard
-            key={item.id}
-            name={item.name}
-            price={`${item.price} kr`}
-            image={item.image}
-            category={item.category}
-          />
-        ))}
-      </section>
       <BottomNav />
     </div>
   );

@@ -5,6 +5,7 @@ export interface DishCardProps {
   price: string;
   image: string;
   category?: string;
+  onAdd?: () => void;
 }
 
 const DishCard: React.FC<DishCardProps> = ({
@@ -12,10 +13,11 @@ const DishCard: React.FC<DishCardProps> = ({
   price,
   image,
   category,
+  onAdd,
 }) => {
   return (
     <article className="dish-card">
-      <img src={image} alt={name} className="dish-image" />
+      {image ? <img src={image} alt={name} className="dish-image" /> : null}
 
       <div className="dish-info">
         <div>
@@ -24,7 +26,7 @@ const DishCard: React.FC<DishCardProps> = ({
           {category && <p className="dish-category">{category}</p>}
         </div>
 
-        <button className="add-btn" aria-label={`Add ${name}`}>
+        <button className="add-btn" aria-label={`Add ${name}`} onClick={onAdd}>
           +
         </button>
       </div>
