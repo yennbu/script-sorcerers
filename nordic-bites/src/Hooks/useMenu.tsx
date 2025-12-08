@@ -30,7 +30,16 @@ export function useMenu() {
         if (!res.ok) throw new Error(`Failed to fetch menu: ${res.status}`);
 
         const json = await res.json();
-        const mapped = (json.menu ?? []).map((item: any) => ({
+        interface MenuApiItem {
+          _id: string;
+          title?: string;
+          price: number;
+          image?: string;
+          prodId?: string;
+          type?: number;
+        }
+
+        const mapped = (json.menu ?? []).map((item: MenuApiItem) => ({
           id: item._id,
           name: item.title ?? null,
           price: item.price,
