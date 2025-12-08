@@ -80,6 +80,7 @@ const MenyPage: React.FC = () => {
               price={`${item.price} kr`}
               image={item.image}
               category={item.category}
+              onAdd={() => handleAddToCart(item)}
             />
           ))}
       </div>
