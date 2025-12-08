@@ -20,10 +20,17 @@ import { checkApiKey } from "./middlewares/checkApiKey.js";
 const app = express();
 app.use(express.json());
 
-app.use(cookieParser()); 
+app.use(cookieParser());
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: function (origin, callback) {
+            if (!origin) return callback(null, true);
+            if (origin.startsWith("http://")) {
+                callback(null, true);
+            } else {
+                callback(new Error("CORS blocked"));
+            }
+        },
         credentials: true,
     })
 );
