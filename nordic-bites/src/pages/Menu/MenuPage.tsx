@@ -6,6 +6,14 @@ import kroppkakorImg from "../../assets/images/kroppkakor.jpg";
 import Cola from "../../assets/images/Cola.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 
+export interface MenuItem {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
+}
+
 const MenyPage: React.FC = () => {
   return (
     <div className="menu-page">
@@ -46,4 +54,3 @@ const MenyPage: React.FC = () => {
   );
 };
 export default MenyPage;
-
