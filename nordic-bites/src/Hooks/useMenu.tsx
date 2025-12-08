@@ -16,7 +16,7 @@ export function useMenu() {
   useEffect(() => {
     async function fetchMenu() {
       try {
-        const res = await fetch("http://localhost:3000/menu");
+        const res = await fetch("http://localhost:3000/api/menu");
         if (!res.ok) throw new Error("Failed to fetch menu");
 
         const json = await res.json();
