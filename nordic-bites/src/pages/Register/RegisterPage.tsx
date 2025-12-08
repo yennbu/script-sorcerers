@@ -20,9 +20,9 @@ const registerPage = () => {
         e.preventDefault();
 
         const data: RegisterData = {
-            name: "Test User",
-            email: "email",
-            password: "password123",
+            name: String(name),
+            email: String(email),
+            password: String(password),
             role: "user"
         };
 
@@ -83,7 +83,9 @@ const registerPage = () => {
                     className="registerPage-input" />
                 <button className="registerPage-btn" type="submit">Skapa konto</button>
             </form>
-            <p className="loginForm-register">Har du redan ett konto? <NavLink to="/loginForm">Logga in här!</NavLink></p>
+
+            {!success && <p className="loginForm-register">Har du redan ett konto? <NavLink to="/loginForm">Logga in här!</NavLink></p>}
+            {success && <p className="registerPage-success-message">Registrering lyckades! Du kan nu <NavLink to="/loginForm">logga in</NavLink>.</p>}
         </div>
     )
 }
