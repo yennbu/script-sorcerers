@@ -15,8 +15,6 @@ interface CartState {
   addItem: (item: Omit<CartItem, "quantity">) => void;
   removeItem: (id: string) => void;
   clearCart: () => void;
-
-  /** Recalcula total dinámicamente */
   calculateTotal: () => void;
 }
 
@@ -62,7 +60,6 @@ export const useCartStore = create<CartState>((set, get) => ({
     );
     set({ total });
   },
-  
 }));
 export const useTotalQuantity = () =>
   useCartStore((state) =>

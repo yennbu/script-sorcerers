@@ -2,8 +2,8 @@ import "../../styles/MenuPage.css";
 import DishCard from "../../components/cart/DishCard";
 import logo from "../../assets/images/Logo.png";
 import { BottomNav } from "../../components/layout/BottomNav";
-import { useMenu } from "../../Hooks/useMenu";
-import { useState } from "react";
+import { useMenu } from "../../hooks/useMenu";
+import { useCartStore } from "../../components/cart/CartStore";
 
 export interface MenuItem {
   id: string;
@@ -16,8 +16,9 @@ export interface MenuItem {
 
 const MenyPage: React.FC = () => {
   const { data: menuItems, loading, error } = useMenu();
-  const [cart, setCart] = useState<MenuItem[]>([]);
-  console.log(cart);
+  // const [cart, setCart] = useState<MenuItem[]>([]);
+  // console.log(cart);
+  const addItem = useCartStore((state) => state.addItem);
   if (loading) {
     return <p className="menu-loading">Laddar meny...</p>;
   }
@@ -28,7 +29,12 @@ const MenyPage: React.FC = () => {
 
   // 👇 Aquí va la lógica
   const handleAddToCart = (item: MenuItem) => {
-    setCart((prevCart) => [...prevCart, item]);
+    addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+    });
   };
   return (
     <div className="menu-page">
@@ -55,6 +61,7 @@ const MenyPage: React.FC = () => {
           .map((item: MenuItem) => (
             <DishCard
               key={item.id}
+              id={item.id}
               name={item.name}
               price={`${item.price} kr`}
               image={item.image || ""}
@@ -76,6 +83,7 @@ const MenyPage: React.FC = () => {
           .map((item: MenuItem) => (
             <DishCard
               key={item.id}
+              id={item.id}
               name={item.name}
               price={`${item.price} kr`}
               image={item.image}
