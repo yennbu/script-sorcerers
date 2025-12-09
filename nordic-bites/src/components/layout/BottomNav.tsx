@@ -24,7 +24,7 @@ export const BottomNav = () => {
       <ul className="bottom-nav__list">
         {navItems.map((item) => (
           <li key={item.to} className="bottom-nav__item">
-          {/* aktiv länk markeras med NavLink */}
+            {/* aktiv länk markeras med NavLink */}
             <NavLink
               to={item.to}
               className={({ isActive }) =>
