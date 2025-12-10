@@ -3,6 +3,7 @@ import HomeIcon from "../../assets/icons/home.svg";
 import FoodIcon from "../../assets/icons/food.svg";
 import CartIcon from "../../assets/icons/cart.svg";
 import ReceiptIcon from "../../assets/icons/receipt.svg";
+import { useTotalQuantity } from "../cart/CartStore";
 import "./BottomNav.css";
 
 type NavItem = {
@@ -19,6 +20,8 @@ const navItems: NavItem[] = [
 ];
 
 export const BottomNav = () => {
+  const cartItemCount = useTotalQuantity();
+  console.log(cartItemCount);
   return (
     <nav className="bottom-nav">
       <ul className="bottom-nav__list">
@@ -28,7 +31,13 @@ export const BottomNav = () => {
             <NavLink
               to={item.to}
               className={({ isActive }) =>
-                ["bottom-nav__link", isActive ? "bottom-nav__link--active" : ""]
+                [
+                  "bottom-nav__link",
+                  isActive ? "bottom-nav__link--active" : "",
+                  item.to === "/cart" && cartItemCount > 0
+                    ? "bottom-nav__link--in-cart"
+                    : "",
+                ]
                   .join(" ")
                   .trim()
               }
@@ -38,6 +47,9 @@ export const BottomNav = () => {
                 alt={item.label}
                 className="bottom-nav__icon"
               />
+              {item.to === "/cart" && cartItemCount > 0 && (
+                <span className="cart-badge">{cartItemCount}</span>
+              )}
             </NavLink>
           </li>
         ))}
