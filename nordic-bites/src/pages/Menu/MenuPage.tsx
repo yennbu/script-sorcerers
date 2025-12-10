@@ -26,7 +26,6 @@ const MenyPage: React.FC = () => {
     return <p className="menu-error">{error}</p>;
   }
 
-  // 👇 Aquí va la lógica
   const handleAddToCart = (item: MenuItem) => {
     setCart((prevCart) => [...prevCart, item]);
   };
