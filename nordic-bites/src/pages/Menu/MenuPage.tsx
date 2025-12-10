@@ -17,43 +17,32 @@ export interface MenuItem {
 
 const MenyPage: React.FC = () => {
   const { data: menuItems, loading, error } = useMenu();
-  // const [cart, setCart] = useState<MenuItem[]>([]);
-  // console.log(cart);
   const addItem = useCartStore((state) => state.addItem);
-
   const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("all");
   const [priceSort, setPriceSort] = useState("none");
-
-  if (loading) {
-    return <p className="menu-loading">Laddar meny...</p>;
-  }
-
-  if (error) {
-    return <p className="menu-error">{error}</p>;
-  }
-
-  const handleAddToCart = (item: MenuItem) => {
-    // setCart((prevCart) => [...prevCart, item]);
-    addItem({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-    });
-  };
+  const [typeFilter, setTypeFilter] = useState("all");
 
   const filteredItems = useMemo(() => {
+    const q = search.trim().toLowerCase();
+
     let result = [...menuItems];
 
-    if (search.trim() !== "") {
-      result = result.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
-      );
+    if (q !== "") {
+      result = result.filter((item) => {
+        const nameMatch = item.name.toLowerCase().includes(q);
+        const categoryMatch = item.category?.toLowerCase().includes(q);
+        const imageMatch = item.image?.toLowerCase().includes(q);
+        const priceMatch =
+          String(item.price).includes(q) || item.price === Number(q);
+
+        return nameMatch || categoryMatch || imageMatch || priceMatch;
+      });
     }
 
-    if (categoryFilter !== "all") {
-      result = result.filter((item) => item.category === categoryFilter);
+    if (typeFilter !== "all") {
+      result = result.filter(
+        (item) => Number(item.type) === Number(typeFilter)
+      );
     }
 
     if (priceSort === "asc") {
@@ -63,17 +52,29 @@ const MenyPage: React.FC = () => {
     }
 
     return result;
-  }, [menuItems, search, categoryFilter, priceSort]);
+  }, [menuItems, search, typeFilter, priceSort]);
+
+  if (loading) {
+    return <p className="menu-loading">Laddar meny...</p>;
+  }
+
+  if (error) {
+    return <p className="menu-error">{error}</p>;
+  }
+  const handleAddToCart = (item: MenuItem) => {
+    addItem({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      image: item.image,
+    });
+  };
 
   return (
     <div className="menu-page">
       <section className="menu-header">
         <img src={logo} alt="Nordic Bites logo" className="Menu-logo" />
         <h1 className="about-title">Nordic Bites</h1>
-      </section>
-
-      <section className="search-wrapper">
-        <input className="menu-input" type="text" placeholder="Sök rätt..." />
       </section>
 
       <section className="search-wrapper">
@@ -87,19 +88,18 @@ const MenyPage: React.FC = () => {
       </section>
 
       <section className="filter-controls">
-        <label htmlFor="categoryFilter" className="filter-label">
+        <label htmlFor="typeFilter" className="filter-label">
           Välj kategori:
         </label>
         <select
-          id="categoryFilter"
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
+          id="typeFilter"
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
           className="filter-select"
         >
-          <option value="all">Alla kategorier</option>
-          <option value="Kött">Kött</option>
-          <option value="Vegetarisk">Vegetarisk</option>
-          <option value="Dryck">Dryck</option>
+          <option value="all">Alla typer</option>
+          <option value="0">Maträtt</option>
+          <option value="1">Dryck</option>
         </select>
 
         <label htmlFor="priceSort" className="filter-label">
@@ -118,50 +118,56 @@ const MenyPage: React.FC = () => {
       </section>
 
       <h1 className="menu-title">Meny</h1>
+      {filteredItems.some((item: MenuItem) => item.type === 0) && (
+        <>
+          <section className="category-section">
+            <div className="line"></div>
+            <h2 className="category-title">Huvudrätter</h2>
+            <div className="line"></div>
+          </section>
 
-      <section className="category-section">
-        <div className="line"></div>
-        <h2 className="category-title">Huvudrätter</h2>
-        <div className="line"></div>
-      </section>
+          <section className="dish-list">
+            {filteredItems
+              .filter((item: MenuItem) => item.type !== 1)
+              .map((item: MenuItem) => (
+                <DishCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  price={`${item.price} kr`}
+                  image={item.image || ""}
+                  category={item.category}
+                  onAdd={() => handleAddToCart(item)}
+                />
+              ))}
+          </section>
+        </>
+      )}
+      {filteredItems.some((item: MenuItem) => item.type === 1) && (
+        <>
+          <section className="category-section">
+            <div className="line"></div>
+            <h2 className="category-title">Drycker</h2>
+            <div className="line"></div>
+          </section>
 
-      <section className="dish-list">
-        {menuItems
-          .filter((item: MenuItem) => item.type !== 1)
-          .map((item: MenuItem) => (
-            <DishCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              price={`${item.price} kr`}
-              image={item.image || ""}
-              category={item.category}
-              onAdd={() => handleAddToCart(item)}
-            />
-          ))}
-      </section>
-
-      <section className="category-section">
-        <div className="line"></div>
-        <h2 className="category-title">Drycker</h2>
-        <div className="line"></div>
-      </section>
-
-      <div className="dishlist-Cola">
-        {menuItems
-          .filter((item: MenuItem) => item.type === 1)
-          .map((item: MenuItem) => (
-            <DishCard
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              price={`${item.price} kr`}
-              image={item.image}
-              category={item.category}
-              onAdd={() => handleAddToCart(item)}
-            />
-          ))}
-      </div>
+          <section className="dishlist-Cola">
+            {filteredItems
+              .filter((item: MenuItem) => item.type === 1)
+              .map((item: MenuItem) => (
+                <DishCard
+                  key={item.id}
+                  id={item.id}
+                  name={item.name}
+                  price={`${item.price} kr`}
+                  image={item.image}
+                  category={item.category}
+                  onAdd={() => handleAddToCart(item)}
+                />
+              ))}
+          </section>
+        </>
+      )}
       <BottomNav />
     </div>
   );
