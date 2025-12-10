@@ -8,7 +8,7 @@ import "./App.css";
 // Pages
 import { Home } from "./pages/Home/Home";
 import MenuPage from "./pages/Menu/MenuPage";
-import { CartPage } from "./pages/Cart/CartPage";
+import CartPage from "./pages/Cart/CartPage";
 import { ReceiptPage } from "./pages/Receipt/ReceiptPage";
 import AboutPage from "./pages/About/AboutPage";
 import LoginPage from "./pages/Login/LoginPage";
@@ -31,7 +31,7 @@ function App() {
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<ReceiptPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/aboutPage" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
