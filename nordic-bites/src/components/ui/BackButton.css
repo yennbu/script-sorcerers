@@ -1,0 +1,14 @@
+.back-button {
+  background: none;
+  border: none;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+  color: black;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.back-button:hover {
+  text-decoration: underline;
+}
