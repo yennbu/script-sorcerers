@@ -8,6 +8,7 @@ import swishIcon from "../../assets/icons/swish.png";
 import klarnaIcon from "../../assets/icons/klarna.png";
 
 import { PaymentOption } from "../../components/payment/PaymentOption";
+import { BackButton } from "../../components/ui/BackButton";
 
 type PaymentMethod = "card" | "swish" | "klarna";
 
@@ -32,6 +33,9 @@ const PaymentPage: React.FC = () => {
   return (
     <div className="payment-page">
       <header className="payment-header">
+        {/* Tillbaka till kundvagnen */}
+        <BackButton to="/cart" label="Tillbaka till kundvagn" />
+
         <img src={logo} alt="Nordic Bites logo" className="payment-logo" />
         <h1 className="payment-title">Nordic Bites</h1>
       </header>

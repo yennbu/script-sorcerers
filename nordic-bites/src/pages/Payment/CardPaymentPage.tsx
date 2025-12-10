@@ -3,6 +3,7 @@ import "../../styles/CardPaymentPage.css";
 
 import logo from "../../assets/images/Logo.png";
 import cardIcon from "../../assets/icons/card.png";
+import BackButton from "../../components/ui/BackButton";
 
 const CardPaymentPage: React.FC = () => {
   // TODO: Hämta detta värde från API / cart-context senare
@@ -27,7 +28,6 @@ const CardPaymentPage: React.FC = () => {
 
     setEmailError("");
 
-    // TODO: Skicka betalningsdata till backend / API
     console.log("Kortbetalning skickad:", {
       cardNumber,
       expiryMonth,
@@ -39,12 +39,15 @@ const CardPaymentPage: React.FC = () => {
       totalAmount,
     });
 
-    // TODO: Navigera till orderbekräftelse-sida
     // navigate("/confirmation");
   };
 
   return (
     <div className="card-payment-page">
+      <div className="card-payment-back-row">
+        <BackButton to="/payment" label="Tillbaka" />
+      </div>
+
       <header className="card-payment-header">
         <img src={logo} alt="Nordic Bites" className="card-payment-logo" />
         <h1 className="card-payment-title">Nordic Bites</h1>
@@ -77,47 +80,47 @@ const CardPaymentPage: React.FC = () => {
           </div>
 
           <div className="card-payment-row">
-  <div className="card-payment-field">
-    <label className="card-payment-label" htmlFor="expiryMonth">
-      MM
-    </label>
-    <input
-      id="expiryMonth"
-      type="text"
-      className="card-payment-input card-payment-input--small"
-      placeholder="MM"
-      value={expiryMonth}
-      onChange={(e) => setExpiryMonth(e.target.value)}
-    />
-  </div>
-  <div className="card-payment-field">
-    <label className="card-payment-label" htmlFor="expiryYear">
-      ÅÅ
-    </label>
-    <input
-      id="expiryYear"
-      type="text"
-      className="card-payment-input card-payment-input--small"
-      placeholder="ÅÅ"
-      value={expiryYear}
-      onChange={(e) => setExpiryYear(e.target.value)}
-    />
-  </div>
-</div>
+            <div className="card-payment-field">
+              <label className="card-payment-label" htmlFor="expiryMonth">
+                MM
+              </label>
+              <input
+                id="expiryMonth"
+                type="text"
+                className="card-payment-input card-payment-input--small"
+                placeholder="MM"
+                value={expiryMonth}
+                onChange={(e) => setExpiryMonth(e.target.value)}
+              />
+            </div>
+            <div className="card-payment-field">
+              <label className="card-payment-label" htmlFor="expiryYear">
+                ÅÅ
+              </label>
+              <input
+                id="expiryYear"
+                type="text"
+                className="card-payment-input card-payment-input--small"
+                placeholder="ÅÅ"
+                value={expiryYear}
+                onChange={(e) => setExpiryYear(e.target.value)}
+              />
+            </div>
+          </div>
 
-<div className="card-payment-field">
-  <label className="card-payment-label" htmlFor="cvc">
-    CVC
-  </label>
-  <input
-    id="cvc"
-    type="password"
-    className="card-payment-input card-payment-input--small"
-    placeholder="***"
-    value={cvc}
-    onChange={(e) => setCvc(e.target.value)}
-  />
-</div>
+          <div className="card-payment-field">
+            <label className="card-payment-label" htmlFor="cvc">
+              CVC
+            </label>
+            <input
+              id="cvc"
+              type="password"
+              className="card-payment-input card-payment-input--small"
+              placeholder="***"
+              value={cvc}
+              onChange={(e) => setCvc(e.target.value)}
+            />
+          </div>
 
           <div className="card-payment-field">
             <label className="card-payment-label" htmlFor="cardHolder">
