@@ -14,6 +14,7 @@ import AboutPage from "./pages/About/AboutPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import LoginForm from "./pages/Login/LoginForm";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 // Layout
 import { BottomNav } from "./components/layout/BottomNav";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </main>
       <BottomNav />

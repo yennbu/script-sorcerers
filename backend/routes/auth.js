@@ -60,7 +60,7 @@ router.post('/login', async (req, res) => {
         SECRET_KEY,
         { expiresIn: '1h' });
 
-    const isAdmin = user.role === 'admin';
+    const isAdmin = user.role === 'admin'; //Dubbelkolla om denna behövs
 
     res.cookie("token", token, {
         httpOnly: true,
