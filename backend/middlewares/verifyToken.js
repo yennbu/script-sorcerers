@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 const SECRET_KEY = process.env.JWT_SECRET || "a1b1c1";
 
 export function verifyToken(req, res, next) {
+    console.log("Verifying token middleware triggered");
     const token = req.cookies.token;
 
     if (!token) {

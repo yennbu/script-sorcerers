@@ -8,7 +8,7 @@ import { v4 as uuid } from 'uuid';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
-const SECRET_KEY = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const SECRET_KEY = process.env.JWT_SECRET || 'a1b1c1';
 
 router.get("/logout", (req, res) => {
     res.clearCookie("token", { path: "/" });
@@ -65,8 +65,8 @@ router.post('/login', async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "none",
-        // secure: true, // använd i produktion med HTTPS
+        sameSite: "lax",
+        secure: false, // använd med true i produktion med HTTPS
         path: "/"
     });
 
