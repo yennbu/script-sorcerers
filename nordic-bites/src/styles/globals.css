@@ -1,61 +1,76 @@
-@import url('https://fonts.googleapis.com/css2?family=Fondamento&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Fondamento&display=swap');
 
-:root {
-    /* Colors */
-    --color-bg: #FCFDF7;
-    --color-text: #FCFDF7;
-    --color-text-light: #FCFDF7;
-    --color-navbar: #1A262F;
-    --color-button: #354C5E;
-    --color-input: #FFFFFF;
-    --color-menu-overlay: #D6EBEA;
-    --color-title: #1A262F;
+ :root {
+     /* Colors */
+     --color-bg: #FCFDF7;
+     --color-text: #FCFDF7;
+     --color-text-light: #FCFDF7;
+     --color-navbar: #1A262F;
+     --color-button: #354C5E;
+     --color-input: #FFFFFF;
+     --color-menu-overlay: #D6EBEA;
+     --color-title: #1A262F;
 
-    /* Font */
-    --font-main: 'Fondamento', sans-serif;
-    --font-title: 'Fondamento', cursive;
-    --font-family: 'Poppins', sans-serif;
-}
+     /* Font */
+     --font-main: 'Fondamento', sans-serif;
+     --font-title: 'Fondamento', cursive;
+     --font-family: 'Poppins', sans-serif;
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-family);
-    background-color: var(--color-bg);
-    color: var(--color-text);
-}
+     /* Spacing & layout */
+     --space-xs: 8px;
+     --space-sm: 12px;
+     --space-md: 16px;
+     --space-lg: 24px;
+     --container-max: 1200px;
 
-/* Title */
-h1,
-.brand-title {
-    font-family: var(--font-title);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
+     /* Breakpoints */
+     --bp-xs: 390px;
+     --bp-sm: 480px;
+     --bp-md: 768px;
+     --bp-lg: 1024px;
+ }
 
-/* Inputs */
-input,
-textarea,
-select {
-    background-color: var(--color-input);
-    color: var(--color-text);
-    border: 1px solid #ccc;
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-family: var(--font-main);
-}
 
-/* Dark pages */
-.dark-section {
-    background-color: var(--color-navbar);
-    color: var(--color-text-light);
-    padding: 2rem;
-    border-radius: 8px;
-}
+ body {
+     margin: 0;
+     padding: 0;
+     font-family: var(--font-family);
+     background-color: var(--color-bg);
+     color: var(--color-text);
+ }
 
-/* Image menu with overlay */
-.menu-image {
-    background-color: var(--color-menu-overlay);
-    padding: 1rem;
-    border-radius: 12px;
-}
+
+ /* Title */
+ h1,
+ .brand-title {
+     font-family: var(--font-title);
+     font-size: 2.5rem;
+     margin-bottom: 1rem;
+ }
+
+ /* Inputs */
+ input,
+ textarea,
+ select {
+     background-color: var(--color-input);
+     color: var(--color-text);
+     border: 1px solid #ccc;
+     padding: 0.5rem;
+     border-radius: 4px;
+     font-family: var(--font-main);
+ }
+
+ /* Dark pages */
+ .dark-section {
+     background-color: var(--color-navbar);
+     color: var(--color-text-light);
+     padding: 2rem;
+     border-radius: 8px;
+ }
+
+ /* Image menu with overlay */
+ .menu-image {
+     background-color: var(--color-menu-overlay);
+     padding: 1rem;
+     border-radius: 12px;
+ }

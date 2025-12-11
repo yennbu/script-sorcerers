@@ -127,7 +127,7 @@
 }
 
 /* Móvil */
-@media (max-width: 430px) {
+@media (max-width: 390px) {
     .about-card {
         padding: 1.8rem;
 
