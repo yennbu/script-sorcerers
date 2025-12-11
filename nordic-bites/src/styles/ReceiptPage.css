@@ -1,0 +1,105 @@
+.receipt-page {
+  min-height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* Figma overlay (#354C5E7D ≈ rgba(53,76,94,0.49)) */
+.receipt-overlay {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  z-index: 1;
+}
+
+.receipt-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(53, 76, 94, 0.49);
+  z-index: 0;
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  color: white;
+}
+
+.receipt-logo {
+  width: 60px;
+  height: 60px;
+}
+
+.receipt-brand {
+  font-family: var(--font-title, "Fondamento", serif);
+  font-size: 1.8rem;
+  margin-top: 0.5rem;
+}
+
+.receipt-title {
+  font-size: 1.4rem;
+  margin-top: 0.25rem;
+}
+
+.receipt-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+}
+
+.receipt-items {
+  margin-bottom: 1rem;
+}
+
+.receipt-item-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.receipt-summary {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.receipt-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.receipt-total {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.receipt-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.receipt-total-subtext {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.receipt-status-text {
+  text-align: center;
+  color: white;
+  margin-top: 200px;
+}
+
+.receipt-status-text--error {
+  color: #ffb3b3;
+}
