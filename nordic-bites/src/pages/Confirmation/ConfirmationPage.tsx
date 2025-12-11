@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useCartStore } from "../../components/cart/CartStore";
-import { useNavigate } from "react-router-dom";
-import OrderSummary from "../../components/order/OrderSummary";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import OrderSummary from "../../components/Order/OrderSummary";
 import "./ConfirmationPage.css";
 
 interface Order {
@@ -13,38 +12,45 @@ interface Order {
 }
 
 const ConfirmationPage: React.FC = () => {
-  const { items, total, clearCart } = useCartStore();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [order, setOrder] = useState<Order | null>(null);
-
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(true);
+  const [order, setOrder] = useState<Order | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
   const API_URL = import.meta.env.VITE_BACKEND_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
 
+  const orderId = searchParams.get("orderId");
+
   useEffect(() => {
-    async function createOrder() {
+    if (!orderId) {
+      setError("Ingen order hittades.");
+      setLoading(false);
+      return;
+    }
+
+    async function fetchOrder() {
       try {
-        const res = await fetch(`${API_URL}/api/orders`, {
-          method: "POST",
+        const res = await fetch(`${API_URL}/api/orders/${orderId}`, {
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
             "x-api-key": API_KEY,
           },
-          body: JSON.stringify({
-            cartId: "user123",
-            note: "",
-          }),
         });
 
-        if (!res.ok) throw new Error(`Failed to confirm order: ${res.status}`);
+        if (!res.ok) {
+          throw new Error(`Failed to load order: ${res.status}`);
+        }
 
         const result = await res.json();
+
         if (result.success) {
           setOrder(result.order);
-          clearCart();
         } else {
-          setError(result.message || "Order confirmation failed");
+          setError(result.message || "Order fetch failed");
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Unknown error occurred");
@@ -53,14 +59,14 @@ const ConfirmationPage: React.FC = () => {
       }
     }
 
-    createOrder();
-  }, [API_URL, API_KEY, items, total, clearCart]);
+    fetchOrder();
+  }, [orderId, API_URL, API_KEY]);
 
   return (
     <section className="confirmation-container">
-      <h1>Order Confirmation</h1>
+      <h1>Orderbekräftelse</h1>
 
-      {loading && <p>Bekräftar din beställning...</p>}
+      {loading && <p>Hämtar din order...</p>}
       {error && <p className="error-message">{error}</p>}
 
       {!loading && !error && order && (
@@ -68,11 +74,15 @@ const ConfirmationPage: React.FC = () => {
           <p>
             Order N°: <strong>{order.orderNumber ?? order.orderId}</strong>
           </p>
-          <p>Thank you for your order!</p>
-          <OrderSummary items={items} total={total} />
+
+          <p>Tack för din beställning.</p>
+
+          <OrderSummary items={order.items} total={order.price} />
+
           <div className="confirmation-buttons">
-            <button onClick={() => navigate("/cart")}>Ändra Order</button>
-            <button onClick={() => navigate("/menu")}>Avbryt Order</button>
+            <button onClick={() => navigate("/menu")}>
+              Tillbaka till menyn
+            </button>
           </div>
         </>
       )}
