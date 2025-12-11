@@ -14,6 +14,7 @@ import AboutPage from "./pages/About/AboutPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import LoginForm from "./pages/Login/LoginForm";
+import ProfilePage from "./pages/Profile/ProfilePage";
 import PaymentPage from "./pages/Payment/PaymentPage";
 import CardPaymentPage from "./pages/Payment/CardPaymentPage";
 import SwishPage from "./pages/Payment/SwishPage";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
+          <Route path="/profile" element={<ProfilePage />} />
            {/* Payment routes */}
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/card" element={<CardPaymentPage />} />

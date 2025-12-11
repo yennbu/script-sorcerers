@@ -9,6 +9,7 @@ import {
 } from "../services/menu.js";
 /* import Product from '../models/product.js'; */
 import { authorizeUser } from "../middlewares/adminAuth.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
@@ -68,7 +69,32 @@ router.get("/:prodId", async (req, res, next) => {
   }
 });
 
-router.post("/", authorizeUser("admin"), async (req, res, next) => {
+router.post(
+  "/",
+  verifyToken,           // 1. kontrollera att token finns och är giltig
+  authorizeUser("admin"), // 2. kontrollera att rollen är admin
+  async (req, res) => {
+    console.log("request body:", req.body);
+
+    try {
+      const result = await addProduct(req.body);
+
+      res.json({
+        success: true,
+        result: result,
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Error: " + error.message,
+      });
+    }
+  }
+);
+
+
+/* router.post("/", authorizeUser("admin"), async (req, res, next) => {
   console.log("request body: ", req.body);
   try {
     const result = await addProduct(req.body);
@@ -82,7 +108,7 @@ router.post("/", authorizeUser("admin"), async (req, res, next) => {
       message: "Error: " + error.message,
     });
   }
-});
+}); */
 
 router.put("/:prodId", authorizeUser("admin"), async (req, res, next) => {
   try {

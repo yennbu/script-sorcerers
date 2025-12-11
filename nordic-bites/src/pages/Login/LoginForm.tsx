@@ -12,7 +12,6 @@ interface LoginData {
 interface LoginResponse {
     success: boolean;
     message?: string;
-    token?: string; // om du får en token tillbaka
 }
 
 const LoginForm: React.FC = () => {
@@ -30,8 +29,8 @@ const LoginForm: React.FC = () => {
         const data: LoginData = {
             email: String(email),
             password: String(password)
-        };  
-        
+        };
+
         try {
             const response: Response = await fetch("https://script-sorcerers.onrender.com/api/auth/login", {
                 method: "POST",
@@ -39,17 +38,19 @@ const LoginForm: React.FC = () => {
                 headers: {
                     "Content-Type": "application/json",
                     "x-api-key": "superhemlignyckel123"
-                }
+                },
+                credentials: "include"
             });
 
             const result: LoginResponse = await response.json();
 
             if (result.success == true) {
                 console.log("Login successful:", response);
+                setSuccess(true);
+                setErrorMsg("");
+
                 setEmail("");
                 setPassword("");
-
-                setSuccess(true);
 
                 navigate("/menu");
             } else {
@@ -60,9 +61,19 @@ const LoginForm: React.FC = () => {
             console.log("Form submitted");
         } catch (error) {
             console.error("Login failed", error);
+            setErrorMsg("An error occurred during login");
         }
     };
 
+    async function getUser() {
+        const res = await fetch("https://script-sorcerers.onrender.com/api/auth/me", {
+            method: "GET",
+            credentials: "include"
+        });
+
+        const data = await res.json();
+        console.log("Current user:", data);
+    };
 
     return (
         <div className="loginForm-container">
