@@ -1,6 +1,5 @@
 import React from "react";
 import type { CartItem } from "../cart/CartStore";
-import "./OrderSummary.css";
 
 interface OrderSummaryProps {
   items: CartItem[];
@@ -18,7 +17,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ items, total }) => {
           <p>{item.price * item.quantity} kr</p>
         </div>
       ))}
-      <p className="order-summary__total">Total: {total} kr</p>
+      <p className="order-summary__total">Totalt: {total} kr</p>
     </div>
   );
 };

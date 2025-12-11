@@ -1,10 +1,11 @@
 import "./CartPage.css";
 import { useCartStore } from "../../components/cart/CartStore";
 import logo from "../../assets/images/Logo.png";
+import { useNavigate } from "react-router-dom";
 
 const CartPage: React.FC = () => {
   const { items, total, addItem, removeItem } = useCartStore();
-
+  const navigate = useNavigate();
   return (
     <div className="order-summary">
       <div className="cart-header">
@@ -41,7 +42,9 @@ const CartPage: React.FC = () => {
       </div>
       <p className="note">(inkl. moms och avgifter)</p>
 
-      <button className="checkout-btn">Gå till Kassan</button>
+      <button className="checkout-btn" onClick={() => navigate("/payment")}>
+        Gå till Kassan
+      </button>
     </div>
   );
 };
