@@ -3,6 +3,7 @@ console.log("AUTH ROUTER LOADED");
 
 import { Router } from 'express';
 import { getUser, registerUser } from '../services/users.js';
+import { verifyToken } from '../middlewares/verifyToken.js';
 import { v4 as uuid } from 'uuid';
 import jwt from 'jsonwebtoken';
 
@@ -64,8 +65,9 @@ router.post('/login', async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "lax",
+        sameSite: "none",
         // secure: true, // använd i produktion med HTTPS
+        path: "/"
     });
 
     res.json({
@@ -74,5 +76,19 @@ router.post('/login', async (req, res) => {
         isAdmin
     });
 });
+
+router.get("/profile", verifyToken, (req, res) => {
+    res.json({
+        message: "Protected content",
+        user: req.user
+    });
+});
+
+/* Alla requests (frontend) måste inkludera cookies:
+
+fetch("/api/auth/profile", {
+    credentials: "include"
+}); */
+
 
 export default router;
