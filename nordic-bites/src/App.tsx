@@ -18,6 +18,7 @@ import PaymentPage from "./pages/Payment/PaymentPage";
 import CardPaymentPage from "./pages/Payment/CardPaymentPage";
 import SwishPage from "./pages/Payment/SwishPage";
 import KlarnaPage from "./pages/Payment/KlarnaPage";
+import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
 
 // Layout
 import { BottomNav } from "./components/layout/BottomNav";
@@ -31,11 +32,12 @@ function App() {
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/orders" element={<ReceiptPage />} />
+          <Route path="/ConfirmationPage" element={<ConfirmationPage />} />
           <Route path="/aboutPage" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
-           {/* Payment routes */}
+          {/* Payment routes */}
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/card" element={<CardPaymentPage />} />
           <Route path="/payment/swish" element={<SwishPage />} />
