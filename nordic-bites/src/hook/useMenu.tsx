@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 export interface MenuItem {
   id: string;
+  prodId: string;
   name: string;
   price: number;
   image: string;

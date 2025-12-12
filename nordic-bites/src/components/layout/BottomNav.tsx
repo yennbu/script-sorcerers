@@ -3,7 +3,7 @@ import HomeIcon from "../../assets/icons/home.svg";
 import FoodIcon from "../../assets/icons/food.svg";
 import CartIcon from "../../assets/icons/cart.svg";
 import ReceiptIcon from "../../assets/icons/receipt.svg";
-import { useTotalQuantity } from "../cart/CartStore";
+import { useTotalQuantity } from "../../Store/CartStore";
 import "./BottomNav.css";
 
 type NavItem = {

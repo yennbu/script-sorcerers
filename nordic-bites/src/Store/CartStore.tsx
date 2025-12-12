@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export interface CartItem {
-  id: string;
+  prodId: string;
   name: string;
   price: number;
   image: string;
@@ -13,13 +13,12 @@ interface CartState {
   total: number;
   orderId?: string;
 
-  addItem: (item: Omit<CartItem, "quantity">) => void;
-  removeItem: (id: string) => void;
+  addItem: (item: Omit<CartItem, "quantity">, userId: string) => void;
+  removeItem: (id: string, userId: string) => void;
   clearCart: () => void;
   calculateTotal: () => void;
 
   syncCart: (userId: string) => Promise<void>;
-
   createOrder: (userId: string) => Promise<string | null>;
 }
 
@@ -28,15 +27,15 @@ export const useCartStore = create<CartState>((set, get) => ({
   total: 0,
   orderId: undefined,
 
-  addItem: (item) => {
+  addItem: (item, userId) => {
     const { items } = get();
-    const existing = items.find((i) => i.id === item.id);
+    const existing = items.find((i) => i.prodId === item.prodId);
 
     let updated: CartItem[];
 
     if (existing) {
       updated = items.map((i) =>
-        i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        i.prodId === item.prodId ? { ...i, quantity: i.quantity + 1 } : i
       );
     } else {
       updated = [...items, { ...item, quantity: 1 }];
@@ -44,15 +43,19 @@ export const useCartStore = create<CartState>((set, get) => ({
 
     set({ items: updated });
     get().calculateTotal();
+    get().syncCart(userId);
   },
 
-  removeItem: (id) => {
+  removeItem: (id, userId) => {
     const updated = get()
-      .items.map((i) => (i.id === id ? { ...i, quantity: i.quantity - 1 } : i))
+      .items.map((i) =>
+        i.prodId === id ? { ...i, quantity: i.quantity - 1 } : i
+      )
       .filter((i) => i.quantity > 0);
 
     set({ items: updated });
     get().calculateTotal();
+    get().syncCart(userId);
   },
 
   clearCart: () => {
@@ -67,31 +70,42 @@ export const useCartStore = create<CartState>((set, get) => ({
     set({ total });
   },
 
-  syncCart: async (userId: string) => {
+  syncCart: async (userId) => {
     try {
+      const guestId = userId || localStorage.getItem("guestId") || undefined;
       const { items } = get();
+      console.log("items", items);
       for (const item of items) {
-        await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/cart/${userId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": import.meta.env.VITE_API_KEY,
-          },
-          body: JSON.stringify({
-            prodId: item.id,
-            name: item.name,
-            price: item.price,
-            qty: item.quantity,
-            image: item.image,
-          }),
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key": import.meta.env.VITE_API_KEY,
+            },
+            body: JSON.stringify({
+              prodId: item.prodId,
+              name: item.name,
+              price: item.price,
+              guestId,
+              qty: item.quantity,
+            }),
+          }
+        );
+        const data = await res.json();
+        if (data.success) {
+          if (data.guestId) {
+            localStorage.setItem("guestId", data.guestId);
+          }
+        }
       }
     } catch (err) {
       console.error("Error syncing cart:", err);
     }
   },
 
-  createOrder: async (userId: string) => {
+  createOrder: async (userId) => {
     try {
       const res = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/orders`,

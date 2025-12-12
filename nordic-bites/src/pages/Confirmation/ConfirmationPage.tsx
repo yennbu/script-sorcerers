@@ -6,7 +6,13 @@ import "./ConfirmationPage.css";
 interface Order {
   orderId: string;
   orderNumber?: number;
-  items: { name: string; quantity: number; price: number }[];
+  items: {
+    id: string;
+    name: string;
+    quantity: number;
+    price: number;
+    image: string;
+  }[];
   price: number;
   note?: string;
 }
@@ -22,8 +28,8 @@ const ConfirmationPage: React.FC = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  const orderId = searchParams.get("orderId");
-
+  let orderId = searchParams.get("orderId");
+  orderId = "order-232d4";
   useEffect(() => {
     if (!orderId) {
       setError("Ingen order hittades.");
