@@ -1,9 +1,18 @@
 import "./CartPage.css";
-import { useCartStore } from "../../components/cart/CartStore";
+import React from "react";
+import { useCartStore } from "../../Store/CartStore";
 import logo from "../../assets/images/Logo.png";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../Store/authStore";
 
 const CartPage: React.FC = () => {
   const { items, total, addItem, removeItem } = useCartStore();
+  const navigate = useNavigate();
+  const { userId, setAuth } = useAuthStore();
+
+  React.useEffect(() => {
+    setAuth();
+  }, [setAuth]);
 
   return (
     <div className="order-summary">
@@ -15,17 +24,20 @@ const CartPage: React.FC = () => {
 
       <div className="items">
         {items.map((item) => (
-          <div className="item" key={item.id}>
+          <div className="item" key={item.prodId}>
             <img src={item.image} alt={item.name} />
             <span className="item-name">
               {item.quantity} x {item.name}
             </span>
             <div className="controls">
-              <button className="delete" onClick={() => removeItem(item.id)}>
+              <button
+                className="delete"
+                onClick={() => removeItem(item.prodId, userId!)}
+              >
                 🗑️
               </button>
               <span className="quantity">{item.quantity}</span>
-              <button className="add" onClick={() => addItem(item)}>
+              <button className="add" onClick={() => addItem(item, userId!)}>
                 +
               </button>
             </div>
@@ -41,7 +53,9 @@ const CartPage: React.FC = () => {
       </div>
       <p className="note">(inkl. moms och avgifter)</p>
 
-      <button className="checkout-btn">Gå till Kassan</button>
+      <button className="checkout-btn" onClick={() => navigate("/payment")}>
+        Gå till Kassan
+      </button>
     </div>
   );
 };
