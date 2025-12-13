@@ -2,12 +2,13 @@ import "../../styles/MenuPage.css";
 import DishCard from "../../components/cart/DishCard";
 import logo from "../../assets/images/Logo.png";
 import { BottomNav } from "../../components/layout/BottomNav";
-import { useMenu } from "../../hooks/useMenu";
+import { useMenu } from "../../hook/useMenu";
 import { useState, useMemo } from "react";
-import { useCartStore } from "../../components/cart/CartStore";
+import { useCartStore } from "../../Store/CartStore";
 
 export interface MenuItem {
   id: string;
+  prodId: string;
   name: string;
   price: number;
   image: string;
@@ -26,7 +27,7 @@ const MenyPage: React.FC = () => {
     const q = search.trim().toLowerCase();
 
     let result = [...menuItems];
-
+    console.log("result", result);
     if (q !== "") {
       result = result.filter((item) => {
         const nameMatch = item.name.toLowerCase().includes(q);
@@ -62,12 +63,15 @@ const MenyPage: React.FC = () => {
     return <p className="menu-error">{error}</p>;
   }
   const handleAddToCart = (item: MenuItem) => {
-    addItem({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      image: item.image,
-    });
+    addItem(
+      {
+        prodId: item.category,
+        name: item.name,
+        price: item.price,
+        image: item.image,
+      },
+      ""
+    );
   };
 
   return (
@@ -132,7 +136,7 @@ const MenyPage: React.FC = () => {
               .map((item: MenuItem) => (
                 <DishCard
                   key={item.id}
-                  id={item.id}
+                  id={item.category}
                   name={item.name}
                   price={`${item.price} kr`}
                   image={item.image || ""}
@@ -157,7 +161,7 @@ const MenyPage: React.FC = () => {
               .map((item: MenuItem) => (
                 <DishCard
                   key={item.id}
-                  id={item.id}
+                  id={item.category}
                   name={item.name}
                   price={`${item.price} kr`}
                   image={item.image}

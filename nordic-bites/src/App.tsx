@@ -19,6 +19,7 @@ import PaymentPage from "./pages/Payment/PaymentPage";
 import CardPaymentPage from "./pages/Payment/CardPaymentPage";
 import SwishPage from "./pages/Payment/SwishPage";
 import KlarnaPage from "./pages/Payment/KlarnaPage";
+import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
 
 // Layout
 import { BottomNav } from "./components/layout/BottomNav";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/confirmation" element={<ConfirmationPage />} />
           <Route path="/orders" element={<ReceiptPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/login" element={<LoginPage />} />
