@@ -20,7 +20,7 @@ export function useMenu() {
   useEffect(() => {
     async function fetchMenu() {
       try {
-        const res = await fetch(`${API_URL}/api/menu`, {
+        const res = await fetch(/* `${API_URL}/api/menu` */ "http://localhost:3000/api/menu" , {
           method: "GET",
           headers: {
             "x-api-key": API_KEY,
