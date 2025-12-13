@@ -65,7 +65,7 @@ const LoginForm: React.FC = () => {
         }
     };
 
-    async function getUser() {
+/*     async function getUser() {
         const res = await fetch("https://script-sorcerers.onrender.com/api/auth/me", {
             method: "GET",
             credentials: "include"
@@ -73,7 +73,7 @@ const LoginForm: React.FC = () => {
 
         const data = await res.json();
         console.log("Current user:", data);
-    };
+    }; */
 
     return (
         <div className="loginForm-container">
