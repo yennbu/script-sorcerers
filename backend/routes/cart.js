@@ -66,6 +66,7 @@ router.put('/', validateCartBody, async (req, res, next) => {
     const product = await getProduct(prodId);
     if (!product) {
         return next({ status: 400, message: 'Invalid prodId provided' });
+        // Triggas inte eftersom validateCartBody redan kollar detta
     }
 
     const cartOwnerId = userId || guestId || `guest-${uuid().substring(0, 5)}`;
@@ -84,6 +85,7 @@ router.put('/', validateCartBody, async (req, res, next) => {
             success: true,
             message: 'Cart updated',
             cart: result,
+            guestId: userId ? null : cartOwnerId,
             totalPrice: totalPrice
         });
     } else {
