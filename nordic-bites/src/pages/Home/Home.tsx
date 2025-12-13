@@ -3,6 +3,7 @@ import "../../styles/HomePage.css";
 import heroImage from "../../assets/images/mountains.jpg";
 import meatballsImage from "../../assets/images/köttbullar.jpg";
 import northernImage from "../../assets/images/northern-lights.jpg";
+import LoginIcon from "../../components/loginIcon/LoginIcon";
 
 type MenuItem = {
   name: string;
@@ -26,6 +27,7 @@ export const Home = () => {
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="home-hero__overlay">
+          <LoginIcon />
           <div className="home-hero__content">
             <h1 className="home-hero__title">Nordic Bites</h1>
             <p className="home-hero__subtitle">
