@@ -3,11 +3,12 @@ console.log("AUTH ROUTER LOADED");
 
 import { Router } from 'express';
 import { getUser, registerUser } from '../services/users.js';
+import { verifyToken } from '../middlewares/verifyToken.js';
 import { v4 as uuid } from 'uuid';
 import jwt from 'jsonwebtoken';
 
 const router = Router();
-const SECRET_KEY = process.env.JWT_SECRET || 'your_jwt_secret_key';
+const SECRET_KEY = process.env.JWT_SECRET || 'a1b1c1';
 
 router.get("/logout", (req, res) => {
     res.clearCookie("token", { path: "/" });
@@ -60,12 +61,13 @@ router.post('/login', async (req, res) => {
         SECRET_KEY,
         { expiresIn: '1h' });
 
-    const isAdmin = user.role === 'admin';
+    const isAdmin = user.role === 'admin'; //Dubbelkolla om denna behövs
 
     res.cookie("token", token, {
         httpOnly: true,
         sameSite: "lax",
-        // secure: true, // använd i produktion med HTTPS
+        secure: false, // använd med true i produktion med HTTPS
+        path: "/"
     });
 
     res.json({
@@ -74,5 +76,19 @@ router.post('/login', async (req, res) => {
         isAdmin
     });
 });
+
+router.get("/profile", verifyToken, (req, res) => {
+    res.json({
+        message: "Protected content",
+        user: req.user
+    });
+});
+
+/* Alla requests (frontend) måste inkludera cookies:
+
+fetch("/api/auth/profile", {
+    credentials: "include"
+}); */
+
 
 export default router;
