@@ -71,8 +71,8 @@ router.get("/:prodId", async (req, res, next) => {
 
 router.post(
   "/",
-  verifyToken,           // 1. kontrollera att token finns och är giltig
-  authorizeUser("admin"), // 2. kontrollera att rollen är admin
+  verifyToken,
+  authorizeUser("admin"),
   async (req, res) => {
     console.log("request body:", req.body);
 
@@ -93,24 +93,7 @@ router.post(
   }
 );
 
-
-/* router.post("/", authorizeUser("admin"), async (req, res, next) => {
-  console.log("request body: ", req.body);
-  try {
-    const result = await addProduct(req.body);
-    res.json({
-      success: true,
-      result: result,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error: " + error.message,
-    });
-  }
-}); */
-
-router.put("/:prodId", authorizeUser("admin"), async (req, res, next) => {
+router.put("/:prodId", verifyToken, authorizeUser("admin"), async (req, res, next) => {
   try {
     const result = await updateProduct(req.params.prodId, req.body);
     if (result) {
@@ -132,7 +115,7 @@ router.put("/:prodId", authorizeUser("admin"), async (req, res, next) => {
   }
 });
 
-router.delete("/:prodId", authorizeUser("admin"), async (req, res, next) => {
+router.delete("/:prodId", verifyToken, authorizeUser("admin"), async (req, res, next) => {
   try {
     const result = await deleteProduct(req.params.prodId);
     if (result) {
