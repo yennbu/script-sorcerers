@@ -12,14 +12,22 @@ export function validateAuthBody(req, res, next) {
 
 export function validateCartBody(req, res, next) {
     const { prodId, qty } = req.body;
-    if(prodId && qty) {
-        next();
-    } else {
-        next({
-            status : 400,
-            message : 'BOTH prodId AND qty are required'
+
+    if (typeof prodId !== "string") {
+        return next({
+            status: 400,
+            message: "prodId is required"
         });
     }
+
+    if (typeof qty !== "number") {
+        return next({
+            status: 400,
+            message: "qty must be a number"
+        });
+    }
+
+    next();
 }
 
 export function validateOrderBody(req, res, next) {
