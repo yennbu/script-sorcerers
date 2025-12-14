@@ -1,11 +1,14 @@
 import { useState, type FormEvent } from "react";
 import "../../styles/CardPaymentPage.css";
-
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
 import cardIcon from "../../assets/icons/card.png";
 import BackButton from "../../components/ui/BackButton";
+import { useCartStore } from "../../Store/CartStore";
 
 const CardPaymentPage: React.FC = () => {
+  const { total, clearCart, createOrder } = useCartStore();
+  const navigate = useNavigate();
   // TODO: Hämta detta värde från API / cart-context senare
   const totalAmount = 0;
 
@@ -18,29 +21,43 @@ const CardPaymentPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     if (!email.trim()) {
       setEmailError("Du måste fylla i din mailadress");
       return;
     }
-
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setEmailError("Ogiltig mailadress");
+      return;
+    }
     setEmailError("");
-
-    console.log("Kortbetalning skickad:", {
-      cardNumber,
-      expiryMonth,
-      expiryYear,
-      cvc,
-      cardHolder,
-      saveCard,
-      email,
-      totalAmount,
-    });
-
-    // navigate("/confirmation");
+    try {
+      const guestId = localStorage.getItem("guestId") || "";
+      const orderId = await createOrder(guestId);
+      if (orderId) {
+        clearCart();
+        navigate(`/confirmation?orderId=${orderId}`);
+      } else {
+        setEmailError("Kunde inte skapa ordern, försök igen.");
+      }
+    } catch (error) {
+      console.error("Error creating order:", error);
+      setEmailError("Tekniskt fel vid ordern.");
+    }
   };
+
+  console.log("Kortbetalning skickad:", {
+    cardNumber,
+    expiryMonth,
+    expiryYear,
+    cvc,
+    cardHolder,
+    saveCard,
+    email,
+    totalAmount,
+  });
 
   return (
     <div className="card-payment-page">
@@ -176,9 +193,7 @@ const CardPaymentPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {emailError && (
-              <p className="card-payment-error">{emailError}</p>
-            )}
+            {emailError && <p className="card-payment-error">{emailError}</p>}
           </div>
 
           <button type="submit" className="card-payment-submit">
