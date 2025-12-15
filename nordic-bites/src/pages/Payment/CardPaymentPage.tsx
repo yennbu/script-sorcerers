@@ -5,9 +5,10 @@ import logo from "../../assets/images/Logo.png";
 import cardIcon from "../../assets/icons/card.png";
 import BackButton from "../../components/ui/BackButton";
 
-const CardPaymentPage: React.FC = () => {
-  // TODO: Hämta detta värde från API / cart-context senare
-  const totalAmount = 0;
+import { useCartStore } from "../../Store/CartStore";
+
+const CardPaymentPage = () => {
+  const totalAmount = useCartStore((state) => state.total);
 
   const [cardNumber, setCardNumber] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
@@ -176,9 +177,7 @@ const CardPaymentPage: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {emailError && (
-              <p className="card-payment-error">{emailError}</p>
-            )}
+            {emailError && <p className="card-payment-error">{emailError}</p>}
           </div>
 
           <button type="submit" className="card-payment-submit">
