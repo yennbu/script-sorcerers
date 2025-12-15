@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import OrderSummary from "../../components/Order/OrderSummary";
+import logo from "../../assets/images/Logo.png";
 import "./ConfirmationPage.css";
 
 interface Order {
@@ -70,7 +71,11 @@ const ConfirmationPage: React.FC = () => {
 
   return (
     <section className="confirmation-container">
-      <h1>Orderbekräftelse</h1>
+      <div className="cart-header">
+        <img src={logo} alt="Nordic Bites logo" className="Cart-logo" />
+        <h1 className="title">Nordic Bites</h1>
+      </div>
+      <h2 className="Subtitle">Orderbekräftelse</h2>
 
       {loading && <p>Hämtar din order...</p>}
       {error && <p className="error-message">{error}</p>}
