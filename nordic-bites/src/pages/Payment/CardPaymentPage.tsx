@@ -10,7 +10,7 @@ const CardPaymentPage: React.FC = () => {
   const { total, clearCart, createOrder } = useCartStore();
   const navigate = useNavigate();
   // TODO: Hämta detta värde från API / cart-context senare
-  const totalAmount = 0;
+  const totalAmount = total;
 
   const [cardNumber, setCardNumber] = useState("");
   const [expiryMonth, setExpiryMonth] = useState("");
