@@ -14,6 +14,7 @@ import cartRouter from './routes/cart.js';
 import orderRouter from './routes/orders.js';
 
 import { checkApiKey } from "./middlewares/checkApiKey.js";
+import { verifyToken } from "./middlewares/verifyToken.js";
 
 /* import errorHandler from './middlewares/errorHandler.js'; */
 

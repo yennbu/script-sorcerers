@@ -1,0 +1,10 @@
+.loginIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 30px;
+
+    cursor: pointer;
+
+    filter: brightness(0) invert(1);
+}

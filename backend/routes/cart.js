@@ -1,141 +1,124 @@
-import { Router } from 'express';
-import { validateCartBody } from '../middlewares/validators.js';
-import { getProduct } from '../services/menu.js';
-import { getUser } from '../services/users.js';
-import { getCarts, getCart, updateCart } from '../services/cart.js';
-import { v4 as uuid } from 'uuid';
-import { deleteCart } from '../services/cart.js';
+import e, { Router } from "express";
+import { validateCartBody } from "../middlewares/validators.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
+import { getProduct } from "../services/menu.js";
+import { getUser } from "../services/users.js";
+import { getCarts, getCart, updateCart } from "../services/cart.js";
+import { v4 as uuid } from "uuid";
+import { deleteCart } from "../services/cart.js";
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
-    const carts = await getCarts();
-    if (carts) {
-        res.json({
-            success: true,
-            carts: carts
-        });
-    } else {
-        next({
-            status: 404,
-            message: 'No carts found'
-        });
-    }
-})
+const SECRET_KEY = process.env.JWT_SECRET || "a1b1c1";
+import jwt from "jsonwebtoken";
 
-router.get('/:cartId', async (req, res, next) => {
-    const cart = await getCart(req.params.cartId);
-    if (cart) {
-        res.json({
-            success: true,
-            cart: cart
-        });
-    } else {
-        next({
-            status: 404,
-            message: 'No cart found'
-        });
-    }
-})
-
-router.put('/', validateCartBody, async (req, res, next) => {
-    const { prodId, qty, guestId } = req.body;
-    if (global.user) {
-        const user = await getUser(global.user.email);
-        if (user) {
-            const product = await getProduct(prodId);
-            if (product) {
-                const result = await updateCart(user.userId, {
-                    prodId: prodId,
-                    title: product.title,
-                    price: product.price,
-                    qty: qty
-                });
-                if (result) {
-                    const totalPrice = result.items.reduce((sum, item) => {
-                        return sum + item.price * item.qty;
-                    }, 0);
-
-                    res.status(201).json({
-                        success: true,
-                        message: 'Cart updated',
-                        cart: result,
-                        totalPrice: totalPrice
-                    });
-                } else {
-                    next({
-                        status: 400,
-                        message: 'Could not add to cart'
-                    });
-                }
-            } else {
-                next({
-                    status: 400,
-                    message: 'Invalid prodId provided'
-                });
-            }
-        } else {
-            next({
-                status: 404,
-                message: 'Something went wrong'
-            });
-        }
-    } else {
-        const product = await getProduct(prodId);
-        if (product) {
-            const result = await updateCart(guestId || `guest-${uuid().substring(0, 5)}`, {
-                prodId: prodId,
-                title: product.title,
-                price: product.price,
-                qty: qty
-            });
-            if (result) {
-                const totalPrice = result.items.reduce((sum, item) => {
-                    return sum + item.price * item.qty;
-                }, 0);
-
-                res.status(201).json({
-                    success: true,
-                    message: 'Cart updated',
-                    cart: result,
-                    totalPrice: totalPrice
-                });
-            } else {
-                next({
-                    status: 400,
-                    message: 'Could not add to cart'
-                });
-            }
-        } else {
-            next({
-                status: 400,
-                message: 'Invalid prodId provided'
-            });
-        }
-    }
+router.get("/", async (req, res, next) => {
+  const carts = await getCarts();
+  if (carts) {
+    res.json({
+      success: true,
+      carts: carts,
+    });
+  } else {
+    next({
+      status: 404,
+      message: "No carts found",
+    });
+  }
 });
 
-router.delete('/:cartId', async (req, res, next) => {
+router.get("/:cartId", async (req, res, next) => {
+  const cart = await getCart(req.params.cartId);
+  if (cart) {
+    let totalPrice = 0;
+    cart.items.forEach((item) => {
+      totalPrice += item.price * item.qty;
+    });
+    res.json({
+      success: true,
+      cart: cart,
+      totalPrice: totalPrice,
+    });
+  } else {
+    next({
+      status: 404,
+      message: "No cart found",
+    });
+  }
+});
+
+router.put("/", validateCartBody, async (req, res, next) => {
+  const { prodId, qty, guestId } = req.body;
+  let userId = null;
+  let token = req.cookies.token;
+
+  if (token) {
     try {
-        const result = await deleteCart(req.params.cartId);
-        if (result) {
-            res.json({
-                success: true,
-                result: result
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: `No cart with id ${req.params.cartId} found`
-            });
-        }
-    } catch (error) {
-        next({
-            status: 500,
-            message: `No cart with id ${req.params.cartId} found`
-        });
+      const decoded = jwt.verify(token, SECRET_KEY);
+      userId = decoded.id;
+    } catch (err) {
+      userId = null;
     }
 
+    console.log("userId:", userId);
+  }
+
+  const product = await getProduct(prodId);
+  if (!product) {
+    return next({ status: 400, message: "Invalid prodId provided" });
+    // Triggas inte eftersom validateCartBody redan kollar detta
+  }
+
+  const cartOwnerId = userId || guestId || `guest-${uuid().substring(0, 5)}`;
+
+  const result = await updateCart(cartOwnerId, {
+    prodId: prodId,
+    title: product.title,
+    price: product.price,
+    qty: qty,
+  });
+
+  const totalPrice = result.items.reduce(
+    (sum, item) => sum + item.price * item.qty,
+    0
+  );
+
+  if (result) {
+    res.status(201).json({
+      success: true,
+      message: "Cart updated",
+      cart: result,
+      guestId: userId ? null : cartOwnerId,
+      totalPrice: totalPrice,
+    });
+  } else {
+    next({
+      status: 400,
+      message: "Could not add to cart",
+    });
+  }
+});
+
+router.delete("/:cartId", async (req, res, next) => {
+  try {
+    const result = await deleteCart(req.params.cartId);
+    if (result) {
+      res.json({
+        success: true,
+        result: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: `No cart with id ${req.params.cartId} found`,
+      });
+    }
+  } catch (error) {
+    next({
+      status: 500,
+      message: `No cart with id ${req.params.cartId} found`,
+    });
+  }
 });
 
 export default router;

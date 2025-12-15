@@ -1,126 +1,140 @@
-import { Router } from 'express';
-import { getMenu, getProduct, addProduct, updateProduct, deleteProduct, searchProduct } from '../services/menu.js';
+import { Router } from "express";
+import {
+  getMenu,
+  getProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  searchProduct,
+} from "../services/menu.js";
 /* import Product from '../models/product.js'; */
-import { authorizeUser } from '../middlewares/adminAuth.js'; 
+import { authorizeUser } from "../middlewares/adminAuth.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
-router.get('/', async (req, res, next) => {
-    const menu = await getMenu();
-    if (menu) {
-        res.json({
-            success: true,
-            menu: menu
-        });
+router.get("/", async (req, res, next) => {
+  const menu = await getMenu();
+
+  if (menu) {
+    res.json({
+      success: true,
+      menu: menu,
+    });
+  } else {
+    next({
+      status: 404,
+      message: "Menu not found",
+    });
+  }
+});
+
+router.get("/search", async (req, res, next) => {
+  try {
+    const title = req.query.query;
+    const results = await searchProduct(title);
+
+    if (results) {
+      res.json({
+        success: true,
+        results: results,
+      });
     } else {
-        next({
-            status: 404,
-            message: 'Menu not found'
-        });
+      res.status(404).json({
+        success: false,
+        message: `Product not found, title: ${title}`,
+      });
     }
+  } catch (error) {
+    next({
+      status: 500,
+      message: `Something went wrong: ${error.message}`,
+    });
+  }
 });
 
-router.get('/search', async (req, res, next) => {
+router.get("/:prodId", async (req, res, next) => {
+  const { prodId } = req.params;
+  const product = await getProduct(prodId);
+  if (product) {
+    res.json({
+      success: true,
+      product: product,
+    });
+  } else {
+    next({
+      status: 404,
+      message: "Product not found",
+    });
+  }
+});
+
+router.post(
+  "/",
+  verifyToken,
+  authorizeUser("admin"),
+  async (req, res) => {
+    console.log("request body:", req.body);
+
     try {
-        const title = req.query.query;
-        const results = await searchProduct(title);
+      const result = await addProduct(req.body);
 
-        if (results) {
-            res.json({
-                success: true,
-                results: results
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: `Product not found, title: ${title}`
+      res.json({
+        success: true,
+        result: result,
+      });
 
-            });
-        }
     } catch (error) {
-        next({
-            status: 500,
-            message: `Something went wrong: ${error.message}`
-        });
+      res.status(500).json({
+        success: false,
+        message: "Error: " + error.message,
+      });
     }
-});
+  }
+);
 
-
-router.get('/:prodId', async (req, res, next) => {
-    const { prodId } = req.params;
-    const product = await getProduct(prodId);
-    if (product) {
-        res.json({
-            success: true,
-            product: product
-        });
+router.put("/:prodId", verifyToken, authorizeUser("admin"), async (req, res, next) => {
+  try {
+    const result = await updateProduct(req.params.prodId, req.body);
+    if (result) {
+      res.json({
+        success: true,
+        result: result,
+      });
     } else {
-        next({
-            status: 404,
-            message: 'Product not found'
-        });
+      next({
+        status: 404,
+        message: "Product update failed",
+      });
     }
+  } catch (error) {
+    next({
+      status: 500,
+      message: error.message,
+    });
+  }
 });
 
-router.post('/', authorizeUser('admin'), async (req, res, next) => {
-    console.log('request body: ', req.body)
-    try {
-        const result = await addProduct(req.body);
-        res.json({
-            success: true,
-            result: result
-        });
-    } catch (error) {      
-            res.status(500).json({
-                success: false,
-                message: 'Error: ' + error.message
-            });
+router.delete("/:prodId", verifyToken, authorizeUser("admin"), async (req, res, next) => {
+  try {
+    const result = await deleteProduct(req.params.prodId);
+    if (result) {
+      res.json({
+        success: true,
+        result: result,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
     }
+  } catch (error) {
+    next({
+      status: 500,
+      message: `No product with id ${req.params.prodId} found`,
+    });
+  }
 });
-
-router.put('/:prodId', authorizeUser('admin'), async (req, res, next) => {
-    try {
-        const result = await updateProduct(req.params.prodId, req.body);
-        if (result) {
-            res.json({
-                success: true,
-                result: result
-            });
-        } else {
-            next({
-                status: 404,
-                message: 'Product update failed'
-            });
-        }
-    } catch (error) {
-        next({
-            status: 500,
-            message: error.message
-        });
-    }
-});
-
-router.delete('/:prodId', authorizeUser('admin'), async (req, res, next) => {
-    try {
-        const result = await deleteProduct(req.params.prodId);
-        if (result) {
-            res.json({
-                success: true,
-                result: result
-            });
-        } else {
-            res.status(404).json({
-                success: false,
-                message: 'Product not found'
-            });
-        }
-    } catch (error) {
-        next({
-            status: 500,
-            message: `No product with id ${req.params.prodId} found`
-        });
-    }
-});
-
 
 export default router;

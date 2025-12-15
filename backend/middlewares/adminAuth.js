@@ -1,22 +1,25 @@
-//Kod för att hantera Admin-login
 export function authorizeUser(requiredRole) {
     return (req, res, next) => {
-        const user = global.user; // Hämta användaren från globalt scope
+        const user = req.user; //hämtar { id, role }
 
-        if (user) {
-            if (!requiredRole || user.role === requiredRole) {
-                return next();
-            } else {
-                return res.status(403).json({
-                    success: false,
-                    message: 'You do not have the required permissions!'
-                });
-            }
-        } else {
+        if (!user) {
             return res.status(403).json({
                 success: false,
                 message: 'You must log in!'
             });
         }
+
+        if (!requiredRole) {
+            return next();
+        }
+
+        if (user.role === requiredRole) {
+            return next();
+        }
+
+        return res.status(403).json({
+            success: false,
+            message: 'You do not have the required permissions!'
+        });
     };
 }

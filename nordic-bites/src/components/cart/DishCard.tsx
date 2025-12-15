@@ -1,36 +1,30 @@
 import React from "react";
 
 export interface DishCardProps {
+  id: string;
   name: string;
   price: string;
   image: string;
   category?: string;
+  onAdd?: () => void;
 }
 
-const DishCard: React.FC<DishCardProps> = ({
-  name,
-  price,
-  image,
-  category,
-}) => {
+const DishCard: React.FC<DishCardProps> = ({ name, price, image, onAdd }) => {
   return (
-    <div role="list">
-      <article className="dish-card" role="listitem">
-        <img src={image} alt={name} className="dish-image" />
+    <article className="dish-card">
+      {image ? <img src={image} alt={name} className="dish-image" /> : null}
 
-        <div className="dish-info">
-          <div>
-            <p className="dish-name">{name}</p>
-            <p className="dish-price">{price}</p>
-            {category && <p className="dish-category">{category}</p>}
-          </div>
-
-          <button className="add-btn" aria-label={`Add ${name}`}>
-            +
-          </button>
+      <div className="dish-info">
+        <div>
+          <p className="dish-name">{name}</p>
+          <p className="dish-price">{price}</p>
         </div>
-      </article>
-    </div>
+
+        <button className="add-btn" aria-label={`Add ${name}`} onClick={onAdd}>
+          +
+        </button>
+      </div>
+    </article>
   );
 };
 
