@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import "../../styles/HomePage.css";
-import heroImage from "../../assets/images/mountains.jpg";
-import meatballsImage from "../../assets/images/köttbullar.jpg";
-import northernImage from "../../assets/images/northern-lights.jpg";
+import heroImage from "/images/mountains.jpg";
+import meatballsImage from "/images/köttbullar.jpg";
+import northernImage from "/images/northern-lights.jpg";
 import LoginIcon from "../../components/loginIcon/LoginIcon";
 
 type MenuItem = {

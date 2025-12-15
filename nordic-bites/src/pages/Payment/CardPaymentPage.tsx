@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react";
 import "../../styles/CardPaymentPage.css";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/Logo.png";
-import cardIcon from "../../assets/icons/card.png";
+import logo from "/images/Logo.png";
+import cardIcon from "/icons/card.png";
 import BackButton from "../../components/ui/BackButton";
 import { useCartStore } from "../../Store/CartStore";
 

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/PaymentPage.css";
 
-import logo from "../../assets/images/Logo.png";
-import cardIcon from "../../assets/icons/card.png";
-import swishIcon from "../../assets/icons/swish.png";
-import klarnaIcon from "../../assets/icons/klarna.png";
+import logo from "/images/Logo.png";
+import cardIcon from "/icons/card.png";
+import swishIcon from "/icons/swish.png";
+import klarnaIcon from "/icons/klarna.png";
 
 import { PaymentOption } from "../../components/payment/PaymentOption";
 import BackButton from "../../components/ui/BackButton";

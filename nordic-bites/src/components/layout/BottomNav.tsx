@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import HomeIcon from "../../assets/icons/home.svg";
-import FoodIcon from "../../assets/icons/food.svg";
-import CartIcon from "../../assets/icons/cart.svg";
-import ReceiptIcon from "../../assets/icons/receipt.svg";
+import HomeIcon from "../../../public/icons/home.svg";
+import FoodIcon from "../../../public/icons/food.svg";
+import CartIcon from "../../../public/icons/cart.svg";
+import ReceiptIcon from "../../../public/icons/receipt.svg";
 import { useTotalQuantity } from "../../Store/CartStore";
 import "./BottomNav.css";
 

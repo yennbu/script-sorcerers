@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import OrderSummary from "../../components/Order/OrderSummary";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../../public/images/Logo.png";
 import "./ConfirmationPage.css";
 
 interface Order {
   orderId: string;
   orderNumber?: number;
   items: {
-    id: string;
+    prodId: string;
     name: string;
     quantity: number;
     price: number;
