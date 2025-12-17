@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { BottomNav } from "../../components/layout/BottomNav";
 import "./LoginPage.css";
-import Logo from "../../assets/images/Logo.png";
+import Logo from "/images/Logo.png";
 
 const LoginPage = () => {
     return (

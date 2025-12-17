@@ -1,6 +1,6 @@
 import "../../styles/AboutPage.css";
-import logo from "../../assets/images/Logo.png";
-import familyImage from "../../assets/images/familyImage.png";
+import logo from "../../../public/images/Logo.png";
+import familyImage from "../../../public/images/familyImage.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 
 const AboutPage: React.FC = () => {
@@ -20,10 +20,7 @@ const AboutPage: React.FC = () => {
           kvalitetsmat var du än är.
         </p>
         <p className="about-text">
-          Nordic Bites föddes ur idén att ta den nordiska matkulturen till en
-          modern take away-upplevelse. Vi kombinerar traditionella smaker med
-          ett minimalistiskt uttryck, och gör det enkelt för dig att njuta av
-          kvalitetsmat var du än är. Vår meny är inspirerad av naturens rena
+          Vår meny är inspirerad av naturens rena
           råvaror och generationers hantverk, där varje rätt är noggrant
           sammansatt för att ge både smak och balans. Vi tror på hållbarhet,
           enkelhet och en visuell estetik som speglar det nordiska landskapet –

@@ -1,6 +1,6 @@
 import "../../styles/MenuPage.css";
 import DishCard from "../../components/cart/DishCard";
-import logo from "../../assets/images/Logo.png";
+import logo from "/images/Logo.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 import { useMenu } from "../../hook/useMenu";
 import { useState, useMemo } from "react";

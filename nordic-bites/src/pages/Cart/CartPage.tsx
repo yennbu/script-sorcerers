@@ -1,7 +1,7 @@
 import "./CartPage.css";
 import React from "react";
 import { useCartStore } from "../../Store/CartStore";
-import logo from "../../assets/images/Logo.png";
+import logo from "/images/Logo.png";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../Store/authStore";
 
