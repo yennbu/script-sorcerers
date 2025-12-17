@@ -180,9 +180,7 @@ export const ReceiptPage: React.FC = () => {
                 <span>Totalt</span>
                 <span>{total} kr</span>
               </div>
-              <p className="receipt-total-subtext">
-                (inkl. moms och avgifter)
-              </p>
+              <p className="receipt-total-subtext">(inkl. moms och avgifter)</p>
             </div>
           </section>
         </main>
