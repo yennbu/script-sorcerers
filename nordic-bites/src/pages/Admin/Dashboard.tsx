@@ -20,6 +20,7 @@ const Dashboard: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     const [doneOrders, setDoneOrders] = useState<Record<string, boolean>>({});
+    const [confirmedOrders, setConfirmedOrders] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -64,6 +65,13 @@ const Dashboard: React.FC = () => {
         }));
     };
 
+    const confirmOrder = (orderId: string) => {
+    setConfirmedOrders(prev => ({
+        ...prev,
+        [orderId]: true
+    }));
+};
+
     if (loading) return <p>Loading orders...</p>;
 
     return (
@@ -78,6 +86,7 @@ const Dashboard: React.FC = () => {
                 <ul className='dashboard-orders'>
                     {orders.map(order => {
                         const isDone = doneOrders[order.id];
+                        const isConfirmed = confirmedOrders[order.id];
 
                         return (
                             <li className='dashboard-orders__items' key={order.id}>
@@ -94,6 +103,13 @@ const Dashboard: React.FC = () => {
 
                                 <div className='dashboard-orders__total'>
                                     <p><strong>Total:</strong> {order.total} SEK</p>
+
+                                    <button
+                                        className={`dashboard-orders__confirm-btn ${isConfirmed ? 'grey' : ''}`}
+                                        onClick={() => confirmOrder(order.id)}
+                                    >
+                                        {confirmedOrders[order.id] ? 'Confirmed ✔' : 'Confirm Order'}
+                                        </button>
 
                                     <button
                                         className={`dashboard-orders__done-btn ${isDone ? 'green' : ''}`}
