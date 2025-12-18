@@ -16,6 +16,7 @@ type ReceiptOrder = {
   items: ReceiptOrderItem[];
   price: number;
   note?: string;
+  status?: "pending" | "confirmed" | "preparing" | "delivered";
 };
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -75,6 +76,7 @@ export const ReceiptPage: React.FC = () => {
           })),
           price: Number(latest.price ?? 0),
           note: latest.note ?? "",
+          status: latest.status ?? "pending",
         };
 
         setOrder(mapped);
@@ -171,6 +173,16 @@ export const ReceiptPage: React.FC = () => {
                 <span>Datum</span>
                 <span>{today}</span>
               </div>
+            </div>
+
+            <div className="receipt-summary-row">
+              <span>Status</span>
+              <span>
+                {order.status === "pending" && "I väntan"}
+                {order.status === "confirmed" && "Bekräftad"}
+                {order.status === "preparing" && "Förbereds"}
+                {order.status === "delivered" && "Levererad"}
+              </span>
             </div>
 
             <hr className="receipt-divider" />
