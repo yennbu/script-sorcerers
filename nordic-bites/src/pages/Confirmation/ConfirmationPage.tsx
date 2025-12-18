@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import OrderSummary from "../../components/Order/OrderSummary";
-import logo from "../../../public/images/Logo.png";
+import logo from "/images/Logo.png";
 import "./ConfirmationPage.css";
 
 interface Order {
@@ -29,8 +28,8 @@ const ConfirmationPage: React.FC = () => {
   const API_URL = import.meta.env.VITE_BACKEND_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
 
-  let orderId = searchParams.get("orderId");
-  orderId = "order-232d4";
+  const orderId = searchParams.get("orderId");
+
   useEffect(() => {
     if (!orderId) {
       setError("Ingen order hittades.");
@@ -40,7 +39,7 @@ const ConfirmationPage: React.FC = () => {
 
     async function fetchOrder() {
       try {
-        const res = await fetch(`${API_URL}/api/orders/${orderId}`, {
+        const res = await fetch(`${API_URL}/api/orders/by-id/${orderId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -82,15 +81,16 @@ const ConfirmationPage: React.FC = () => {
 
       {!loading && !error && order && (
         <>
-          <p>
+          <p className="confirmation-message">Thank you for your order!</p>
+          <p className="order-number">
             Order N°: <strong>{order.orderNumber ?? order.orderId}</strong>
           </p>
-
           <p>Tack för din beställning.</p>
 
-          <OrderSummary items={order.items} total={order.price} />
+          {order.note && <p className="order-note">Notering: {order.note}</p>}
 
           <div className="confirmation-buttons">
+            <button onClick={() => navigate(`/orders`)}>Visa kvitto</button>
             <button onClick={() => navigate("/menu")}>
               Tillbaka till menyn
             </button>
@@ -100,5 +100,4 @@ const ConfirmationPage: React.FC = () => {
     </section>
   );
 };
-
 export default ConfirmationPage;

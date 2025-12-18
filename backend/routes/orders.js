@@ -42,6 +42,19 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+router.get("/by-id/:orderId", async (req, res, next) => {
+  try {
+    const order = await Order.findOne({ orderId: req.params.orderId });
+    if (order) {
+      res.json({ success: true, order });
+    } else {
+      res.status(404).json({ success: false, message: "Order not found" });
+    }
+  } catch (err) {
+    next({ success: false, message: "Internal server error" });
+  }
+});
+
 router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
   const lastOrder = await Order.findOne().sort({ createdAt: -1 });
   const orderNumber = lastOrder ? (lastOrder.orderNumber || 0) + 1 : 1;
