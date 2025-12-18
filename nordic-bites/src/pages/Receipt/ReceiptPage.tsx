@@ -48,7 +48,7 @@ export const ReceiptPage: React.FC = () => {
             "Content-Type": "application/json",
           },
         });
-
+        console.log("res", res);
         if (!res.ok) {
           throw new Error(`Kunde inte hämta order. Status: ${res.status}`);
         }
@@ -65,7 +65,7 @@ export const ReceiptPage: React.FC = () => {
         }
 
         const latest = orders[orders.length - 1];
-
+        console.log("latest", latest);
         const mapped: ReceiptOrder = {
           orderId: latest.orderId ?? latest._id ?? "okänd-order",
           items: (latest.items ?? []).map((item: any) => ({
@@ -76,7 +76,7 @@ export const ReceiptPage: React.FC = () => {
           })),
           price: Number(latest.price ?? 0),
           note: latest.note ?? "",
-          status: latest.status ?? "pending",
+          status: latest.status,
         };
 
         setOrder(mapped);
