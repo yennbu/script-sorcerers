@@ -71,6 +71,7 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
       items: cart.items,
       price: price,
       note: note,
+      status: "pending",
     });
     if (order) {
       const result = await deleteCart(cartId);
@@ -97,6 +98,33 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
       success: 400,
       message: "The requested cart does not exist",
     });
+  }
+});
+
+router.patch("/:orderId/status", async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!["pending", "confirmed", "preparing", "delivered"].includes(status)) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid status" });
+    }
+
+    const order = await Order.findOneAndUpdate(
+      { orderId: req.params.orderId },
+      { status },
+      { new: true }
+    );
+
+    if (!order) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Order not found" });
+    }
+
+    res.json({ success: true, order });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
