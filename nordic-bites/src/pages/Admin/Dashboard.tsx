@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
 
     const [doneOrders, setDoneOrders] = useState<Record<string, boolean>>({});
     const [confirmedOrders, setConfirmedOrders] = useState<Record<string, boolean>>({});
+    const [cancelledOrders, setCancelledOrders] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -66,11 +67,18 @@ const Dashboard: React.FC = () => {
     };
 
     const confirmOrder = (orderId: string) => {
-    setConfirmedOrders(prev => ({
-        ...prev,
-        [orderId]: true
-    }));
-};
+        setConfirmedOrders(prev => ({
+            ...prev,
+            [orderId]: true
+        }));
+    };
+
+    const cancelOrder = (orderId: string) => {
+        setCancelledOrders(prev => ({
+            ...prev,
+            [orderId]: true
+        }));
+    };
 
     if (loading) return <p>Loading orders...</p>;
 
@@ -87,6 +95,7 @@ const Dashboard: React.FC = () => {
                     {orders.map(order => {
                         const isDone = doneOrders[order.id];
                         const isConfirmed = confirmedOrders[order.id];
+                        const isCancelled = cancelledOrders[order.id];
 
                         return (
                             <li className='dashboard-orders__items' key={order.id}>
@@ -105,18 +114,29 @@ const Dashboard: React.FC = () => {
                                     <p><strong>Total:</strong> {order.total} SEK</p>
 
                                     <button
-                                        className={`dashboard-orders__confirm-btn ${isConfirmed ? 'grey' : ''}`}
+                                        className={`dashboard-orders__confirm-btn ${isConfirmed || isCancelled ? 'grey' : ''}`}
+                                        disabled={isConfirmed || isCancelled}
                                         onClick={() => confirmOrder(order.id)}
                                     >
-                                        {confirmedOrders[order.id] ? 'Confirmed ✔' : 'Confirm Order'}
-                                        </button>
+                                        {isConfirmed ? 'Confirmed ✔' : 'Confirm Order'}
+                                    </button>
 
                                     <button
-                                        className={`dashboard-orders__done-btn ${isDone ? 'green' : ''}`}
+                                        className={`dashboard-orders__cancel-btn ${isCancelled ? 'red' : isConfirmed ? 'grey' : ''}`}
+                                        disabled={isCancelled}
+                                        onClick={() => cancelOrder(order.id)}
+                                    >
+                                        {isCancelled ? 'Cancelled' : 'Cancel Order'}
+                                    </button>
+
+                                    <button
+                                        className={`dashboard-orders__done-btn ${ !isConfirmed ? 'grey' : isDone ? 'green' : isCancelled ? 'grey' : ''}`}
+                                        disabled={!isConfirmed || isCancelled}
                                         onClick={() => toggleDone(order.id)}
                                     >
                                         {isDone ? 'Done ✔' : 'Mark as done'}
                                     </button>
+
                                 </div>
                             </li>
                         );
