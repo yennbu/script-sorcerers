@@ -20,6 +20,7 @@ import CardPaymentPage from "./pages/Payment/CardPaymentPage";
 import SwishPage from "./pages/Payment/SwishPage";
 import KlarnaPage from "./pages/Payment/KlarnaPage";
 import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
+import Dashboard from "./pages/Admin/Dashboard";
 
 // Layout
 import { BottomNav } from "./components/layout/BottomNav";
@@ -44,6 +45,8 @@ function App() {
           <Route path="/payment/card" element={<CardPaymentPage />} />
           <Route path="/payment/swish" element={<SwishPage />} />
           <Route path="/payment/klarna" element={<KlarnaPage />} />
+          {/* Admin Routes */}
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Routes>
       </main>
       <BottomNav />

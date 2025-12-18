@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import "./LoginPage.css";
-import Logo from "../../assets/images/Logo.png";
+import Logo from "/images/Logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

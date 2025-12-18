@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../../styles/ReceiptPage.css";
 
-import logo from "../../assets/images/Logo.png";
-import mountains from "../../assets/images/mountains.jpg";
+import logo from "/images/Logo.png";
+import mountains from "/images/mountains.jpg";
 
 type ReceiptOrderItem = {
   prodId: string;

@@ -78,8 +78,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       console.log("items", items);
       for (const item of items) {
         const res = await fetch(
-          /* `${import.meta.env.VITE_BACKEND_URL}/api/cart`, */
-          `http://localhost:3000/api/cart`, // Testar lokalt, men ändra till ovan för produktion
+          `${import.meta.env.VITE_BACKEND_URL}/api/cart`,
           {
             method: "PUT",
             headers: {

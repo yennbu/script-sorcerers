@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import logo from "../../assets/images/Logo.png";
+import logo from "/images/Logo.png";
 import "./ConfirmationPage.css";
 
 interface Order {
   orderId: string;
   orderNumber?: number;
   items: {
-    id: string;
+    prodId: string;
     name: string;
     quantity: number;
     price: number;
@@ -68,6 +68,28 @@ const ConfirmationPage: React.FC = () => {
     fetchOrder();
   }, [orderId, API_URL, API_KEY]);
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    if (!order) return;
+
+    switch (value) {
+      case "receipt":
+        navigate(`/kvitto/${order.orderId}`);
+        break;
+      case "menu":
+        navigate("/menu");
+        break;
+      case "cancel":
+        navigate(`/cancel-order/${order.orderId}`);
+        break;
+      case "edit":
+        navigate(`/edit-order/${order.orderId}`);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <section className="confirmation-container">
       <div className="cart-header">
@@ -88,18 +110,6 @@ const ConfirmationPage: React.FC = () => {
           <p>Tack för din beställning.</p>
 
           {order.note && <p className="order-note">Notering: {order.note}</p>}
-
-          <div className="confirmation-buttons">
-            <button onClick={() => navigate(`/edit-order/${order.orderId}`)}>
-              Ändra Order
-            </button>
-            <button onClick={() => navigate(`/cancel-order/${order.orderId}`)}>
-              Avbryt Order
-            </button>
-            <button onClick={() => navigate("/menu")}>
-              Tillbaka till menyn
-            </button>
-          </div>
         </>
       )}
     </section>

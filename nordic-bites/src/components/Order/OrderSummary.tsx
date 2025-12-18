@@ -10,7 +10,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ items, total }) => {
   return (
     <div className="order-summary">
       {items.map((item) => (
-        <div key={item.id} className="order-summary__item">
+        <div key={item.prodId} className="order-summary__item">
           <p>
             {item.name} x {item.quantity}
           </p>
