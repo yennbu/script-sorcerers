@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { v4 as uuid } from "uuid";
 
 interface TokenPayload {
   id: string;
@@ -26,6 +27,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       const decoded = jwtDecode<TokenPayload>(token);
       console.log(decoded);
       set({ userId: decoded.id, role: decoded.role });
+    } else {
+      // If there is no token, we generate a guestId
+      let guestId = localStorage.getItem("guestId");
+      if (!guestId) {
+        guestId = `guest-${uuid().substring(0, 5)}`;
+        localStorage.setItem("guestId", guestId);
+      }
+      set({ userId: guestId, role: "guest" });
     }
   },
 

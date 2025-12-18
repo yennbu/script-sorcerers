@@ -40,7 +40,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
           <Route path="/profile" element={<ProfilePage />} />
-           {/* Payment routes */}
+          {/* Payment routes */}
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/card" element={<CardPaymentPage />} />
           <Route path="/payment/swish" element={<SwishPage />} />
