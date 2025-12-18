@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
+import { useEffect } from "react";
+import { useAuthStore } from "./Store/authStore.tsx";
+
 // Pages
 import { Home } from "./pages/Home/Home";
 import MenuPage from "./pages/Menu/MenuPage";
@@ -26,6 +29,13 @@ import Dashboard from "./pages/Admin/Dashboard";
 import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
+  const restoreSession = useAuthStore(state => state.restoreSession);
+
+  useEffect(() => {
+    restoreSession();
+  }, []);
+
+
   return (
     <div className="app">
       <main className="app__content">
@@ -40,7 +50,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
           <Route path="/profile" element={<ProfilePage />} />
-           {/* Payment routes */}
+          {/* Payment routes */}
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/card" element={<CardPaymentPage />} />
           <Route path="/payment/swish" element={<SwishPage />} />

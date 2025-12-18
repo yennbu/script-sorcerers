@@ -26,6 +26,7 @@ app.use(
     cors({
         origin: function (origin, callback) {
             if (!origin) return callback(null, true);
+            if (origin === "http://localhost:3000") return callback(null, true);
             if (origin.startsWith("http://")) {
                 callback(null, true);
             } else {

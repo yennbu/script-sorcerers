@@ -3,12 +3,14 @@ import { v4 as uuid } from "uuid";
 import Order from "../models/Order.js";
 import { validateApiKey } from "../middlewares/validateApiKey.js";
 import { validateOrderBody } from "../middlewares/validators.js";
+import { authorizeUser } from "../middlewares/adminAuth.js";
 import { deleteCart, getCart } from "../services/cart.js";
 import {
   createOrder,
   getOrders,
   getOrdersByUserId,
 } from "../services/orders.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
@@ -87,7 +89,7 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
   }
 });
 
-router.put("/:orderId/status", validateApiKey, async (req, res, next) => {
+router.put("/:orderId/status", verifyToken, authorizeUser("admin"), validateApiKey, async (req, res, next) => {
   const { status } = req.body;
   const { orderId } = req.params;
 

@@ -33,6 +33,7 @@ const Dashboard: React.FC = () => {
                             'Content-Type': 'application/json',
                             'x-api-key': 'superhemlignyckel123',
                         },
+                        credentials: 'include',
                     }
                 );
 
@@ -72,6 +73,7 @@ const Dashboard: React.FC = () => {
                         'Content-Type': 'application/json',
                         'x-api-key': 'superhemlignyckel123',
                     },
+                    credentials: 'include',
                     body: JSON.stringify({ status }),
                 }
             );
@@ -90,7 +92,7 @@ const Dashboard: React.FC = () => {
             );
         } catch (error) {
             console.error(error);
-            alert((error as Error).message);
+            alert((error as Error).message); // Kolla på att ändra detta!!
         }
     };
 
