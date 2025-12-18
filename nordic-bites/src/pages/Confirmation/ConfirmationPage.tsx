@@ -68,28 +68,6 @@ const ConfirmationPage: React.FC = () => {
     fetchOrder();
   }, [orderId, API_URL, API_KEY]);
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    if (!order) return;
-
-    switch (value) {
-      case "receipt":
-        navigate(`/kvitto/${order.orderId}`);
-        break;
-      case "menu":
-        navigate("/menu");
-        break;
-      case "cancel":
-        navigate(`/cancel-order/${order.orderId}`);
-        break;
-      case "edit":
-        navigate(`/edit-order/${order.orderId}`);
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <section className="confirmation-container">
       <div className="cart-header">
@@ -110,6 +88,13 @@ const ConfirmationPage: React.FC = () => {
           <p>Tack för din beställning.</p>
 
           {order.note && <p className="order-note">Notering: {order.note}</p>}
+
+          <div className="confirmation-buttons">
+            <button onClick={() => navigate(`/orders`)}>Visa kvitto</button>
+            <button onClick={() => navigate("/menu")}>
+              Tillbaka till menyn
+            </button>
+          </div>
         </>
       )}
     </section>
