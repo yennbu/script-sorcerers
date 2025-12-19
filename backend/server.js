@@ -74,6 +74,8 @@ app.get("/", (req, res) => {
     res.send("API fungerar och är kopplat till MongoDB!");
 });
 
-app.listen(3000, () => {
-    console.log("Server startad på http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server startad på port ${PORT}`);
 });
