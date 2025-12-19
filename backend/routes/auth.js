@@ -65,15 +65,12 @@ router.post("/login", async (req, res) => {
         { expiresIn: "1h" }
     );
 
-    const origin = req.headers.origin || '';
-    const isSecure = origin.startsWith('https://');
-
+    // ✅ SIMPLER APPROACH - always use lax for HTTP
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: isSecure ? "none" : "lax",
-        secure: isSecure,
-        path: "/",
-        domain: undefined 
+        sameSite: "lax",     // Changed to always use lax
+        secure: false,        // Changed to always false for now
+        path: "/"
     });
 
     res.json({
