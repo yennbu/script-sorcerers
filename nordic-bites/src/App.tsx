@@ -26,13 +26,12 @@ import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
   const restoreSession = useAuthStore(state => state.restoreSession);
-  const isLoading = useAuthStore(state => state.isLoading);  // ✅ Add this
+  const isLoading = useAuthStore(state => state.isLoading);
 
   useEffect(() => {
     restoreSession();
-  }, [restoreSession]);  // ✅ Add dependency
+  }, [restoreSession]);  
 
-  // ✅ Add loading check
   if (isLoading) {
     return (
       <div className="app">
