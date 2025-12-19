@@ -65,10 +65,13 @@ router.post("/login", async (req, res) => {
         { expiresIn: "1h" }
     );
 
+    const origin = req.headers.origin || '';
+    const isSecure = origin.startsWith('https://');
+
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "none",
-        secure: true,
+        sameSite: isSecure ? "none" : "lax",
+        secure: isSecure,                     
         path: "/"
     });
 
