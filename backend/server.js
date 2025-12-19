@@ -47,7 +47,7 @@ app.use(
     cors({
         origin: function (origin, callback) {
             if (!origin) return callback(null, true);
-            if (origin === "http://localhost:3000") return callback(null, true);
+            if (origin === "http://localhost:3000" || origin === "http://localhost:5173" || origin === "https://script-sorcerers.onrender.com" || origin === "http://nordic-bites.s3-website.eu-north-1.amazonaws.com") return callback(null, true);
             if (origin.startsWith("http://")) {
                 callback(null, true);
             } else {
