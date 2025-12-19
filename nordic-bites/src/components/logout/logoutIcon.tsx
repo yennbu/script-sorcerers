@@ -8,7 +8,7 @@ const LogoutButton = () => {
 
     const handleLogout = async () => {
         try {
-            await fetch("http://localhost:3000/api/auth/logout", {
+            await fetch("https://script-sorcerers.onrender.com/api/auth/logout", {
                 method: "GET",
                 credentials: "include",
             });
