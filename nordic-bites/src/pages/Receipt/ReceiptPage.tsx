@@ -16,7 +16,7 @@ type ReceiptOrder = {
   items: ReceiptOrderItem[];
   price: number;
   note?: string;
-  status?: "pending" | "confirmed" | "preparing" | "delivered";
+  status?: "pending" | "confirmed" | "done";
 };
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -180,8 +180,7 @@ export const ReceiptPage: React.FC = () => {
               <span>
                 {order.status === "pending" && "I väntan"}
                 {order.status === "confirmed" && "Bekräftad"}
-                {order.status === "preparing" && "Förbereds"}
-                {order.status === "delivered" && "Levererad"}
+                {order.status === "done" && "Redo att hämtas"}
               </span>
             </div>
 
