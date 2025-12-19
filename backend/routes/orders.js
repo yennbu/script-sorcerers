@@ -3,12 +3,14 @@ import { v4 as uuid } from "uuid";
 import Order from "../models/Order.js";
 import { validateApiKey } from "../middlewares/validateApiKey.js";
 import { validateOrderBody } from "../middlewares/validators.js";
+import { authorizeUser } from "../middlewares/adminAuth.js";
 import { deleteCart, getCart } from "../services/cart.js";
 import {
   createOrder,
   getOrders,
   getOrdersByUserId,
 } from "../services/orders.js";
+import { verifyToken } from "../middlewares/verifyToken.js";
 
 const router = Router();
 
@@ -71,6 +73,7 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
       items: cart.items,
       price: price,
       note: note,
+      status: "pending",
     });
     if (order) {
       const result = await deleteCart(cartId);
@@ -99,5 +102,44 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
     });
   }
 });
+
+router.put("/:orderId/status", verifyToken, authorizeUser("admin"), validateApiKey, async (req, res, next) => {
+  const { status } = req.body;
+  const { orderId } = req.params;
+
+  const allowed = ["confirmed", "cancelled", "done"];
+
+  if (!allowed.includes(status)) {
+    return res.status(400).json({ message: "Invalid status" });
+  }
+
+  try {
+    const order = await Order.findOne({ orderId });
+
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.status === "cancelled") {
+      return res.status(400).json({ message: "Cancelled orders cannot be updated" });
+    }
+
+    if (order.status === "done") {
+      return res.status(400).json({ message: "Done orders cannot be updated" });
+    }
+
+    if (status === "done" && order.status !== "confirmed") {
+      return res.status(400).json({ message: "Order must be confirmed first" });
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.json({ success: true, order });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 export default router;

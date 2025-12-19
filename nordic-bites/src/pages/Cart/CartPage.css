@@ -126,6 +126,7 @@
     align-items: center;
     justify-content: center;
 
+
 }
 
 
@@ -164,4 +165,76 @@
 .filter-select option {
     padding: 0.5rem;
     font-size: 0.9rem;
+}
+
+/*  Breakpoint  390px iPhone  */
+@media (max-width: 390px) {
+    .order-summary {
+        max-width: 100%;
+        margin: 10px auto;
+        padding: 12px;
+    }
+
+    .cart-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .title {
+        font-size: 1.3rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .Cart-logo {
+        width: 28px;
+        height: 40px;
+    }
+
+    .item img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .item-name {
+        font-size: 0.9rem;
+    }
+
+    .controls button {
+        font-size: 0.9rem;
+    }
+
+    .total {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    .checkout-btn {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .filter-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+    }
+
+    .filter-label {
+        display: block;
+        margin-bottom: 0.3rem;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .filter-select {
+        width: 220px;
+        font-size: 0.9rem;
+        text-align: left;
+    }
 }

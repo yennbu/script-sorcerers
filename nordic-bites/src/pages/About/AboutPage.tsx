@@ -1,6 +1,6 @@
 import "../../styles/AboutPage.css";
-import logo from "../../../public/images/Logo.png";
-import familyImage from "../../../public/images/familyImage.png";
+import logo from "/images/Logo.png";
+import familyImage from "/images/familyImage.png";
 import { BottomNav } from "../../components/layout/BottomNav";
 
 const AboutPage: React.FC = () => {
@@ -41,24 +41,24 @@ const AboutPage: React.FC = () => {
 
         <div className="about-contact-bar">
           <div className="contact-row">
-            <span className="label">Företag</span>
+            <span className="label">Företag: </span>
             <span className="value">Nordic Bites AB</span>
           </div>
           <div className="contact-row">
-            <span className="label">Adress</span>
+            <span className="label">Adress: </span>
             <span className="value">Storgatan 12, 114 55</span>
           </div>
           <div className="contact-row">
-            <span className="label">Stad</span>
+            <span className="label">Stad: </span>
             <span className="value">Stockholm</span>
           </div>
           <div className="contact-row">
-            <span className="label">Telefon</span>
+            <span className="label">Telefon: </span>
             <span className="value">+46 8 123 456 78</span>
           </div>
 
           <div className="contact-row">
-            <span className="label">Email</span>
+            <span className="label">Email: </span>
             <span className="value">kontakt@nordicbites.se</span>
           </div>
         </div>

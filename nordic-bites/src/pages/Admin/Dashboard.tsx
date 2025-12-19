@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
+import LogoutButton from '../../components/logout/logoutIcon';
+
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 interface OrderItem {
     prodId: string;
@@ -8,29 +11,36 @@ interface OrderItem {
     quantity: number;
 }
 
+type OrderStatus = 'pending' | 'confirmed' | 'cancelled' | 'done';
+
 interface OrderData {
     id: string;
     userId: string;
     items: OrderItem[];
     total: number;
+    status: OrderStatus;
 }
 
 const Dashboard: React.FC = () => {
     const [orders, setOrders] = useState<OrderData[]>([]);
     const [loading, setLoading] = useState(true);
 
-    const [doneOrders, setDoneOrders] = useState<Record<string, boolean>>({});
+    const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all');
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await fetch('https://script-sorcerers.onrender.com/api/orders', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-key': 'superhemlignyckel123'
+                const response = await fetch(
+                    'https://script-sorcerers.onrender.com/api/orders',
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': API_KEY || '',
+                        },
+                        credentials: 'include',
                     }
-                });
+                );
 
                 const data = await response.json();
 
@@ -41,15 +51,16 @@ const Dashboard: React.FC = () => {
                         prodId: item.prodId,
                         name: item.title,
                         price: item.price,
-                        quantity: item.qty
+                        quantity: item.qty,
                     })),
-                    total: order.price
+                    total: order.price,
+                    status: order.status,
                 }));
 
                 setOrders(mappedOrders);
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching orders:', error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -57,34 +68,81 @@ const Dashboard: React.FC = () => {
         fetchOrders();
     }, []);
 
-    const toggleDone = (orderId: string) => {
-        setDoneOrders(prev => ({
-            ...prev,
-            [orderId]: !prev[orderId]
-        }));
+    const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
+        try {
+            const response = await fetch(
+                `https://script-sorcerers.onrender.com/api/orders/${orderId}/status`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': API_KEY || '',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ status }),
+                }
+            );
+
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.message || 'Failed to update order status');
+            }
+
+            const data = await response.json();
+
+            setOrders(prev =>
+                prev.map(order =>
+                    order.id === orderId ? data.order : order
+                )
+            );
+        } catch (error) {
+            console.error(error);
+            alert((error as Error).message);
+        }
     };
+
+    const filteredOrders =
+        statusFilter === 'all'
+            ? orders
+            : orders.filter(order => order.status === statusFilter);
 
     if (loading) return <p>Loading orders...</p>;
 
     return (
-        <div className='dashboard-container'>
-            <h1 className='dashboard-title'>Admin Dashboard</h1>
+        <div className="dashboard-container">
+            <LogoutButton />
+            <h1 className="dashboard-title">Admin Dashboard</h1>
 
             <h2>Orders</h2>
 
-            {orders.length === 0 ? (
+            <div className="dashboard-filters">
+                <button className={`filters-btn ${statusFilter === 'all' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('all')}>Alla</button>
+                <button className={`filters-btn ${statusFilter === 'pending' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('pending')}>Pending</button>
+                <button className={`filters-btn ${statusFilter === 'confirmed' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('confirmed')}>Confirmed</button>
+                <button className={`filters-btn ${statusFilter === 'done' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('done')}>Done</button>
+                <button className={`filters-btn ${statusFilter === 'cancelled' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('cancelled')}>Cancelled</button>
+            </div>
+
+            {filteredOrders.length === 0 ? (
                 <p>No orders found.</p>
             ) : (
-                <ul className='dashboard-orders'>
-                    {orders.map(order => {
-                        const isDone = doneOrders[order.id];
+                <ul className="dashboard-orders">
+                    {filteredOrders.map(order => {
+                        const isPending = order.status === 'pending';
+                        const isConfirmed = order.status === 'confirmed';
+                        const isCancelled = order.status === 'cancelled';
+                        const isDone = order.status === 'done';
 
                         return (
-                            <li className='dashboard-orders__items' key={order.id}>
-                                <p><strong>Order ID:</strong> {order.id}</p>
-                                <p><strong>User ID:</strong> {order.userId}</p>
+                            <li className="dashboard-orders__items" key={order.id}>
+                                <p>
+                                    <strong>Order ID:</strong> {order.id}
+                                </p>
+                                <p>
+                                    <strong>User ID:</strong> {order.userId}
+                                </p>
 
-                                <ul className='dashboard-orders__menu-items'>
+                                <ul className="dashboard-orders__menu-items">
                                     {order.items.map(item => (
                                         <li key={item.prodId}>
                                             {item.name} – {item.quantity} x {item.price} SEK
@@ -92,12 +150,48 @@ const Dashboard: React.FC = () => {
                                     ))}
                                 </ul>
 
-                                <div className='dashboard-orders__total'>
-                                    <p><strong>Total:</strong> {order.total} SEK</p>
+                                <div className="dashboard-orders__total">
+                                    <p>
+                                        <strong>Total:</strong> {order.total} SEK
+                                    </p>
 
                                     <button
-                                        className={`dashboard-orders__done-btn ${isDone ? 'green' : ''}`}
-                                        onClick={() => toggleDone(order.id)}
+                                        className={`dashboard-orders__confirm-btn ${!isPending ? 'grey' : ''
+                                            }`}
+                                        disabled={!isPending}
+                                        onClick={() =>
+                                            updateOrderStatus(order.id, 'confirmed')
+                                        }
+                                    >
+                                        {isConfirmed ? 'Confirmed ✔' : 'Confirm Order'}
+                                    </button>
+
+                                    <button
+                                        className={`dashboard-orders__cancel-btn ${isCancelled
+                                                ? 'red'
+                                                : !isPending
+                                                    ? 'grey'
+                                                    : ''
+                                            }`}
+                                        disabled={!isPending}
+                                        onClick={() =>
+                                            updateOrderStatus(order.id, 'cancelled')
+                                        }
+                                    >
+                                        {isCancelled ? 'Cancelled' : 'Cancel Order'}
+                                    </button>
+
+                                    <button
+                                        className={`dashboard-orders__done-btn ${isDone
+                                                ? 'green'
+                                                : !isConfirmed
+                                                    ? 'grey'
+                                                    : ''
+                                            }`}
+                                        disabled={!isConfirmed}
+                                        onClick={() =>
+                                            updateOrderStatus(order.id, 'done')
+                                        }
                                     >
                                         {isDone ? 'Done ✔' : 'Mark as done'}
                                     </button>

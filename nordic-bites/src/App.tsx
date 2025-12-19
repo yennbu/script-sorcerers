@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
-//mport CheckoutPage from "./pages/Checkout/CheckoutPage";
-//import ConfirmationPage from "./pages/Confirmation/ConfirmationPage";
-
 import "./App.css";
+
+import { useEffect } from "react";
+import { useAuthStore } from "./Store/authStore.tsx";
 
 // Pages
 import { Home } from "./pages/Home/Home";
@@ -14,7 +14,6 @@ import AboutPage from "./pages/About/AboutPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import LoginForm from "./pages/Login/LoginForm";
-import ProfilePage from "./pages/Profile/ProfilePage";
 import PaymentPage from "./pages/Payment/PaymentPage";
 import CardPaymentPage from "./pages/Payment/CardPaymentPage";
 import SwishPage from "./pages/Payment/SwishPage";
@@ -26,6 +25,13 @@ import Dashboard from "./pages/Admin/Dashboard";
 import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
+  const restoreSession = useAuthStore(state => state.restoreSession);
+
+  useEffect(() => {
+    restoreSession();
+  }, []);
+
+
   return (
     <div className="app">
       <main className="app__content">
@@ -39,7 +45,6 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/loginForm" element={<LoginForm />} />
-          <Route path="/profile" element={<ProfilePage />} />
           {/* Payment routes */}
           <Route path="/payment" element={<PaymentPage />} />
           <Route path="/payment/card" element={<CardPaymentPage />} />

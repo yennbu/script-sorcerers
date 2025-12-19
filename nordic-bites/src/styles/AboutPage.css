@@ -1,5 +1,5 @@
 .about-page {
-    background-image: url("../assets/images/mountains.jpg");
+    background-image: url("/images/mountains.jpg");
     background-size: cover;
     background-position: center;
     min-height: 100vh;
