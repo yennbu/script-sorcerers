@@ -23,6 +23,8 @@ const Dashboard: React.FC = () => {
     const [orders, setOrders] = useState<OrderData[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all');
+
     useEffect(() => {
         const fetchOrders = async () => {
             try {
@@ -93,9 +95,14 @@ const Dashboard: React.FC = () => {
             );
         } catch (error) {
             console.error(error);
-            alert((error as Error).message); // Kolla på att ändra detta!!
+            alert((error as Error).message);
         }
     };
+
+    const filteredOrders =
+        statusFilter === 'all'
+            ? orders
+            : orders.filter(order => order.status === statusFilter);
 
     if (loading) return <p>Loading orders...</p>;
 
@@ -106,11 +113,19 @@ const Dashboard: React.FC = () => {
 
             <h2>Orders</h2>
 
-            {orders.length === 0 ? (
+            <div className="dashboard-filters">
+                <button className={`filters-btn ${statusFilter === 'all' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('all')}>Alla</button>
+                <button className={`filters-btn ${statusFilter === 'pending' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('pending')}>Pending</button>
+                <button className={`filters-btn ${statusFilter === 'confirmed' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('confirmed')}>Confirmed</button>
+                <button className={`filters-btn ${statusFilter === 'done' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('done')}>Done</button>
+                <button className={`filters-btn ${statusFilter === 'cancelled' ? 'active-filter' : ''}`} onClick={() => setStatusFilter('cancelled')}>Cancelled</button>
+            </div>
+
+            {filteredOrders.length === 0 ? (
                 <p>No orders found.</p>
             ) : (
                 <ul className="dashboard-orders">
-                    {orders.map(order => {
+                    {filteredOrders.map(order => {
                         const isPending = order.status === 'pending';
                         const isConfirmed = order.status === 'confirmed';
                         const isCancelled = order.status === 'cancelled';
@@ -139,9 +154,8 @@ const Dashboard: React.FC = () => {
                                     </p>
 
                                     <button
-                                        className={`dashboard-orders__confirm-btn ${
-                                            !isPending ? 'grey' : ''
-                                        }`}
+                                        className={`dashboard-orders__confirm-btn ${!isPending ? 'grey' : ''
+                                            }`}
                                         disabled={!isPending}
                                         onClick={() =>
                                             updateOrderStatus(order.id, 'confirmed')
@@ -151,13 +165,12 @@ const Dashboard: React.FC = () => {
                                     </button>
 
                                     <button
-                                        className={`dashboard-orders__cancel-btn ${
-                                            isCancelled
+                                        className={`dashboard-orders__cancel-btn ${isCancelled
                                                 ? 'red'
                                                 : !isPending
-                                                ? 'grey'
-                                                : ''
-                                        }`}
+                                                    ? 'grey'
+                                                    : ''
+                                            }`}
                                         disabled={!isPending}
                                         onClick={() =>
                                             updateOrderStatus(order.id, 'cancelled')
@@ -167,13 +180,12 @@ const Dashboard: React.FC = () => {
                                     </button>
 
                                     <button
-                                        className={`dashboard-orders__done-btn ${
-                                            isDone
+                                        className={`dashboard-orders__done-btn ${isDone
                                                 ? 'green'
                                                 : !isConfirmed
-                                                ? 'grey'
-                                                : ''
-                                        }`}
+                                                    ? 'grey'
+                                                    : ''
+                                            }`}
                                         disabled={!isConfirmed}
                                         onClick={() =>
                                             updateOrderStatus(order.id, 'done')
