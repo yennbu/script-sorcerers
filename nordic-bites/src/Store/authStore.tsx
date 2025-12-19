@@ -1,4 +1,5 @@
 // src/stores/AuthStore.ts
+// Innehåller dubbel kod, då den behövde ändras i efterhand för att fungera med admin-login, utan att förstöra gäst-login.
 import { create } from "zustand";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
