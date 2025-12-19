@@ -53,7 +53,7 @@
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .receipt-items {
@@ -102,4 +102,32 @@
 
 .receipt-status-text--error {
   color: #ffb3b3;
+}
+
+
+
+
+/* status*/
+.receipt-summary-row span:last-child {
+  font-weight: 600;
+}
+
+.receipt-summary-row span:last-child:contains("I väntan") {
+  color: #f57c00;
+
+}
+
+.receipt-summary-row span:last-child:contains("Bekräftad") {
+  color: #2e7d32;
+
+}
+
+.receipt-summary-row span:last-child:contains("Förbereds") {
+  color: #1976d2;
+
+}
+
+.receipt-summary-row span:last-child:contains("Levererad") {
+  color: #6a1b9a;
+
 }
