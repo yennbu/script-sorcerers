@@ -26,11 +26,21 @@ import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
   const restoreSession = useAuthStore(state => state.restoreSession);
+  const isLoading = useAuthStore(state => state.isLoading);
 
   useEffect(() => {
     restoreSession();
-  }, []);
+  }, [restoreSession]);  
 
+  if (isLoading) {
+    return (
+      <div className="app">
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <p>Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="app">

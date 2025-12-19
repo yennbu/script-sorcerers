@@ -103,7 +103,7 @@ router.post("/", validateApiKey, validateOrderBody, async (req, res, next) => {
   }
 });
 
-router.put("/:orderId/status", verifyToken, authorizeUser("admin"), validateApiKey, async (req, res, next) => {
+router.put("/:orderId/status", verifyToken, authorizeUser("admin"), async (req, res, next) => {
   const { status } = req.body;
   const { orderId } = req.params;
 

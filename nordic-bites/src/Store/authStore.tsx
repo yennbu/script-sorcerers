@@ -69,7 +69,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   restoreSession: async () => {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/auth/me",
+        "https://script-sorcerers.onrender.com/api/auth/me",
         { credentials: "include" }
       );
 

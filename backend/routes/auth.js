@@ -54,7 +54,6 @@ router.post("/login", async (req, res) => {
         });
     }
 
-    // 👇 NORMALISERA ROLLEN
     const role = user.role.toLowerCase().trim();
 
     const token = jwt.sign(
@@ -68,19 +67,18 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: false,
+        sameSite: "lax",    
+        secure: false,        
         path: "/"
     });
 
     res.json({
         success: true,
         userId: user.userId,
-        role, // 👈 ALLTID "admin" eller "user"
+        role,
         message: `User logged in successfully as ${user.name}, ${user.email}, ${role}`
     });
 });
-
 
 router.get("/me", verifyToken, (req, res) => {
     res.json({
