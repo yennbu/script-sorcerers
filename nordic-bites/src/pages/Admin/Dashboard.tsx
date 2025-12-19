@@ -71,12 +71,12 @@ const Dashboard: React.FC = () => {
     const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
         try {
             const response = await fetch(
-                `http://localhost:3000/api/orders/${orderId}/status`,
+                `https://script-sorcerers.onrender.com/api/orders/${orderId}/status`,
                 {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        'x-api-key': 'superhemlignyckel123',
+                        'x-api-key': API_KEY || '',
                     },
                     credentials: 'include',
                     body: JSON.stringify({ status }),
