@@ -65,11 +65,10 @@ router.post("/login", async (req, res) => {
         { expiresIn: "1h" }
     );
 
-    // ✅ SIMPLER APPROACH - always use lax for HTTP
     res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "lax",     // Changed to always use lax
-        secure: false,        // Changed to always false for now
+        sameSite: "lax",    
+        secure: false,        
         path: "/"
     });
 
