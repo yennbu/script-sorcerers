@@ -16,6 +16,7 @@ type ReceiptOrder = {
   items: ReceiptOrderItem[];
   price: number;
   note?: string;
+  status?: "pending" | "confirmed" | "preparing" | "delivered";
 };
 
 const API_URL = import.meta.env.VITE_BACKEND_URL;
@@ -47,7 +48,7 @@ export const ReceiptPage: React.FC = () => {
             "Content-Type": "application/json",
           },
         });
-
+        console.log("res", res);
         if (!res.ok) {
           throw new Error(`Kunde inte hämta order. Status: ${res.status}`);
         }
@@ -64,7 +65,7 @@ export const ReceiptPage: React.FC = () => {
         }
 
         const latest = orders[orders.length - 1];
-
+        console.log("latest", latest);
         const mapped: ReceiptOrder = {
           orderId: latest.orderId ?? latest._id ?? "okänd-order",
           items: (latest.items ?? []).map((item: any) => ({
@@ -75,6 +76,7 @@ export const ReceiptPage: React.FC = () => {
           })),
           price: Number(latest.price ?? 0),
           note: latest.note ?? "",
+          status: latest.status,
         };
 
         setOrder(mapped);
@@ -173,6 +175,16 @@ export const ReceiptPage: React.FC = () => {
               </div>
             </div>
 
+            <div className="receipt-summary-row">
+              <span>Status</span>
+              <span>
+                {order.status === "pending" && "I väntan"}
+                {order.status === "confirmed" && "Bekräftad"}
+                {order.status === "preparing" && "Förbereds"}
+                {order.status === "delivered" && "Levererad"}
+              </span>
+            </div>
+
             <hr className="receipt-divider" />
 
             <div className="receipt-total">
@@ -180,9 +192,7 @@ export const ReceiptPage: React.FC = () => {
                 <span>Totalt</span>
                 <span>{total} kr</span>
               </div>
-              <p className="receipt-total-subtext">
-                (inkl. moms och avgifter)
-              </p>
+              <p className="receipt-total-subtext">(inkl. moms och avgifter)</p>
             </div>
           </section>
         </main>

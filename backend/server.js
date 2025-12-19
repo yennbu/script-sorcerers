@@ -7,6 +7,7 @@ import connectDB from "./config/connect.js";
 
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import helmet from "helmet";
 
 import authRouter from './routes/auth.js';
 import menuRouter from './routes/menu.js';
@@ -20,6 +21,26 @@ import { verifyToken } from "./middlewares/verifyToken.js";
 
 const app = express();
 app.use(express.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https:", "http:"],
+        styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com", "data:"],
+        scriptSrc: ["'self'"],
+        connectSrc: [
+          "'self'",
+          "http://localhost:3000",
+          "http://localhost:5173",
+          "https://script-sorcerers.onrender.com",
+          "http://nordic-bites.s3-website.eu-north-1.amazonaws.com",
+        ],
+      },
+    },
+  })
+);
 
 app.use(cookieParser());
 app.use(
