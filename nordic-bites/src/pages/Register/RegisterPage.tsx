@@ -3,6 +3,9 @@ import "./RegisterPage.css";
 import Logo from "/images/Logo.png";
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 interface RegisterData {
     name: string;
     email: string;
@@ -33,13 +36,13 @@ const registerPage: React.FC = () => {
         };
 
         try {
-            const response: Response = await fetch("https://script-sorcerers.onrender.com/api/auth/register",
+            const response: Response = await fetch(`${API_URL}/api/auth/register`,
                 {
                     method: "POST",
                     body: JSON.stringify(data),
                     headers: {
                         "Content-Type": "application/json",
-                        "x-api-key": "superhemlignyckel123"
+                        "x-api-key": API_KEY || "",
                     }
                 });
 

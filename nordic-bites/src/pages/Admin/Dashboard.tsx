@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './dashboard.css';
 import LogoutButton from '../../components/logout/logoutIcon';
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 interface OrderItem {
     prodId: string;
     name: string;
@@ -34,7 +36,7 @@ const Dashboard: React.FC = () => {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
-                            'x-api-key': 'superhemlignyckel123',
+                            'x-api-key': API_KEY || '',
                         },
                         credentials: 'include',
                     }

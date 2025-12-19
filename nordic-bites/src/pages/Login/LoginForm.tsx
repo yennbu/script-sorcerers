@@ -4,6 +4,8 @@ import Logo from "/images/Logo.png";
 import { useState } from "react";
 import { useAuthStore } from "../../Store/authStore";
 
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 interface LoginData {
     email: string;
     password: string;
@@ -38,7 +40,7 @@ const LoginForm: React.FC = () => {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "x-api-key": "superhemlignyckel123",
+                        "x-api-key": API_KEY || "",
                     },
                     body: JSON.stringify(data),
                     credentials: "include", // skicka httpOnly-cookie
