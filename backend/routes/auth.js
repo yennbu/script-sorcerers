@@ -71,8 +71,9 @@ router.post("/login", async (req, res) => {
     res.cookie("token", token, {
         httpOnly: true,
         sameSite: isSecure ? "none" : "lax",
-        secure: isSecure,                     
-        path: "/"
+        secure: isSecure,
+        path: "/",
+        domain: undefined 
     });
 
     res.json({
@@ -82,7 +83,6 @@ router.post("/login", async (req, res) => {
         message: `User logged in successfully as ${user.name}, ${user.email}, ${role}`
     });
 });
-
 
 router.get("/me", verifyToken, (req, res) => {
     res.json({
