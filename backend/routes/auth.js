@@ -43,52 +43,52 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await getUser(email);
 
     if (!user || user.password !== password) {
         return res.status(400).json({
             success: false,
-            message: 'Incorrect email and/or password'
+            message: "Incorrect email and/or password"
         });
     }
 
-    const token = jwt.sign({
-        id: user.userId,
-        role: user.role
-    },
-        SECRET_KEY,
-        { expiresIn: '1h' });
+    // 👇 NORMALISERA ROLLEN
+    const role = user.role.toLowerCase().trim();
 
-    const isAdmin = user.role === 'admin'; //Dubbelkolla om denna behövs
+    const token = jwt.sign(
+        {
+            id: user.userId,
+            role
+        },
+        SECRET_KEY,
+        { expiresIn: "1h" }
+    );
 
     res.cookie("token", token, {
         httpOnly: true,
         sameSite: "lax",
-        secure: false, // använd med true i produktion med HTTPS
+        secure: false,
         path: "/"
     });
 
     res.json({
         success: true,
-        message: `User logged in successfully as ${user.name}, ${user.email}, ${user.role}`,
-        isAdmin
+        userId: user.userId,
+        role, // 👈 ALLTID "admin" eller "user"
+        message: `User logged in successfully as ${user.name}, ${user.email}, ${role}`
     });
 });
 
-router.get("/profile", verifyToken, (req, res) => {
+
+router.get("/me", verifyToken, (req, res) => {
     res.json({
-        message: "Protected content",
-        user: req.user
+        success: true,
+        userId: req.user.id,
+        role: req.user.role
     });
 });
-
-/* Alla requests (frontend) måste inkludera cookies:
-
-fetch("/api/auth/profile", {
-    credentials: "include"
-}); */
 
 
 export default router;

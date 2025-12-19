@@ -47,6 +47,24 @@
 
 .dashboard-orders__done-btn {
     padding: 0.5rem 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dashboard-orders__confirm-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.dashboard-orders__cancel-btn {
+    padding: 0.5rem 1rem;
     background-color: red;
     color: white;
     border: none;
@@ -59,3 +77,11 @@
     color: black;
 }
 
+.grey {
+    background-color: lightgray;
+    color: black;
+}
+
+.red {
+    background-color: darkred;
+}
