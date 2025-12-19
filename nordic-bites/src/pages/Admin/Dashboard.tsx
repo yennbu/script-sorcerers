@@ -3,6 +3,7 @@ import './dashboard.css';
 import LogoutButton from '../../components/logout/logoutIcon';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 
 interface OrderItem {
     prodId: string;
@@ -31,7 +32,7 @@ const Dashboard: React.FC = () => {
         const fetchOrders = async () => {
             try {
                 const response = await fetch(
-                    'https://script-sorcerers.onrender.com/api/orders',
+                    `${API_URL}/api/orders`,
                     {
                         method: 'GET',
                         headers: {
@@ -71,7 +72,7 @@ const Dashboard: React.FC = () => {
     const updateOrderStatus = async (orderId: string, status: OrderStatus) => {
         try {
             const response = await fetch(
-                `https://script-sorcerers.onrender.com/api/orders/${orderId}/status`,
+                `${API_URL}/api/orders/${orderId}/status`,
                 {
                     method: 'PUT',
                     headers: {

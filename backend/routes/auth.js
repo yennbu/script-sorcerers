@@ -11,6 +11,7 @@ const router = Router();
 const SECRET_KEY = process.env.JWT_SECRET || 'a1b1c1';
 
 router.get("/logout", (req, res) => {
+    console.log("Logout route accessed");
     res.clearCookie("token", { path: "/" });
     res.json({
         success: true,
@@ -44,6 +45,7 @@ router.post('/register', async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+    console.log("Login route accessed");
     const { email, password } = req.body;
     const user = await getUser(email);
 

@@ -5,6 +5,9 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { v4 as uuid } from "uuid";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
+
 interface TokenPayload {
   id: string;
   role: string;
@@ -68,10 +71,14 @@ export const useAuthStore = create<AuthState>((set) => ({
    */
   restoreSession: async () => {
     try {
-      const res = await fetch(
-        "https://script-sorcerers.onrender.com/api/auth/me",
-        { credentials: "include" }
-      );
+      const res = await fetch(`${API_URL}/api/auth/me`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "x-api-key": API_KEY,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!res.ok) throw new Error("Not logged in");
 

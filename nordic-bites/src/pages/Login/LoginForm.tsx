@@ -4,6 +4,7 @@ import Logo from "/images/Logo.png";
 import { useState } from "react";
 import { useAuthStore } from "../../Store/authStore";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL;
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 interface LoginData {
@@ -35,7 +36,7 @@ const LoginForm: React.FC = () => {
 
         try {
             const response: Response = await fetch(
-                "https://script-sorcerers.onrender.com/api/auth/login",
+                `${API_URL}/api/auth/login`,
                 {
                     method: "POST",
                     headers: {
