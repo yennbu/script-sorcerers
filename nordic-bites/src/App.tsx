@@ -5,6 +5,9 @@ import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
+import { useEffect } from "react";
+import { useAuthStore } from "./Store/authStore.tsx";
+
 // Pages
 import { Home } from "./pages/Home/Home";
 import MenuPage from "./pages/Menu/MenuPage";
@@ -26,6 +29,13 @@ import Dashboard from "./pages/Admin/Dashboard";
 import { BottomNav } from "./components/layout/BottomNav";
 
 function App() {
+  const restoreSession = useAuthStore(state => state.restoreSession);
+
+  useEffect(() => {
+    restoreSession();
+  }, []);
+
+
   return (
     <div className="app">
       <main className="app__content">
