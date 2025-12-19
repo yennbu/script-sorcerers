@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './dashboard.css';
+import LogoutButton from '../../components/logout/logoutIcon';
 
 interface OrderItem {
     prodId: string;
@@ -100,6 +101,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <div className="dashboard-container">
+            <LogoutButton />
             <h1 className="dashboard-title">Admin Dashboard</h1>
 
             <h2>Orders</h2>
